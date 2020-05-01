@@ -1,0 +1,429 @@
+\documentclass[landscape, 10pt, a4paper, oneside, twocolumn]{extarticle}
+\usepackage{kotex}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{import}
+
+\usepackage{teamnote}
+
+\teamnote{Hongik University}{Advanced Algorithm Study}{c}
+
+\ShowUsage
+\ShowComplexity
+\HideAuthor
+
+\begin{document}
+
+\maketitlepage
+
+% Make Pagebreak if you want.
+% \pagebreak
+
+% 미포함 : segTreeStruct
+
+%TODO :
+%빠요엔이라 도저히 하기 힘든거
+%Splay Tree = 너무 빠요엔..
+%뤼카의 정리 빠른거 있는지 확인
+%dp 트릭들
+
+%\iffalse
+
+\section{자료구조}
+
+\Algorithm
+{세그먼트 트리}
+{최소값 세그먼트 트리}
+{}
+{cpp}{segTree.cpp}
+
+\Algorithm
+{세그먼트 트리 + Lazy Propagation}
+{구간합 세그먼트 트리, INF = 항등원}
+{}
+{cpp}{lazySeg.cpp}
+
+\Algorithm
+{펜윅 트리(BIT)}
+{kth(k) = k번째 원소 (1-indexed)}
+{}
+{cpp}{BIT.cpp}
+
+\Algorithm
+{유니온 - 파인드}
+{초기화 : memset(parent, -1, sizeof(parent))\\
+parent[i] ${<}$ 0 이면 해당 집합의 크기
+}
+{}
+{cpp}{UF.cpp}
+
+\Algorithm
+{Ordered - Set}
+{GCC에서만 가능한 치트키}
+{}
+{cpp}{OrderTree.cpp}
+
+\Algorithm
+{Persistent 세그먼트 트리}
+{공간 복잡도가 NlogN인 2차원 세그먼트 트리}
+{}
+{cpp}{perSeg.cpp}
+
+\section{그래프}
+
+\Algorithm
+{SPFA}
+{음수 사이클을 해결 가능한 다익스트라\\
+vector${<}$int${>}$ adj[MAX] = (가중치, 번호)}
+{$\mathcal{O}(VE),{}Average = {O}(E)$}
+{cpp}{SPFA.cpp}
+
+\Algorithm
+{네트워크 플로우 - Easy (에드몬드 카프)}
+{INF = 최대 유량 값(f)\\
+Max-Flow Min-Cut : S와 E로 정점 그룹을 나눌 때, 최대 매칭이 곧 최소 컷의 용량의 합이다\\
+즉, 잔여 용량이 남은 간선을 타고 갈 수 있는 정점은 S에 속한다.}
+{$\mathcal {}min({O}(VE^2), {O}(Ef))$}
+{cpp}{Ed-Karp.cpp}
+
+\Algorithm
+{네트워크 플로우 - Fast (디닉)}
+{INF = 최대 유량 값,  DinicMaxFlow(S, E)\\
+레벨은 "소스까지의 최단거리의 간선의 개수"를 의미한다.\\
+BFS로 '레벨 그래프'를 만든다. 레벨 그래프에서 포함하는 간선은\\
+1. 용량이 남아있는 간선 2. 레벨의 차이가 1인 정점을 연결하는 간선\\
+레벨 그래프를 생성 하고, 에드몬드 카프처럼 DFS를 돌려 유량을 흘려보내 준다.
+}
+{$\mathcal{O}(EV^2)$}
+{cpp}{dinic.cpp}
+
+\Algorithm
+{MCMF (Minimum Cost Maximum Flow)}
+{INF = 가중치의 최장거리\\
+(가중치의 최소값, 유량의 최대값)을 반환한다.}
+{$\mathcal{O}(VEf),{}Average = {O}(Ef)$}
+{cpp}{MCMF.cpp}
+
+\Algorithm
+{이분 매칭 - Easy}
+{adj는 A에서 B로 가는 간선들만 담는다.\\
+배열 A[i]=j면 i와 j가 매칭됬음을 의미한다.\\
+쾨닉의 정리 : 최소 버텍스 커버 = 최대 이분 매칭 (A 중 소스에서 도달 불가능 + B 중 소스에서 도달 가능)}
+{$\mathcal{O}(VE)$}
+{cpp}{BiMatch.cpp}
+
+\Algorithm
+{이분 매칭 - Fast (호프크로프트 카프)}
+{n = A의 크기, MAX = max(Asize,Bsize)\\
+1. bfs-bmatching으로 레벨[=매칭 중이지 않은 정점과의 최단거리]을 매긴다.\\
+2. dfs-bmatching으로 level을 이용해 효율적으로 이분매칭을 할 수 있다
+}
+{$\mathcal{O}(E \sqrt{V})$}
+{cpp}{Hop-Karp.cpp}
+
+\Algorithm
+{SCC (타잔 알고리즘)}
+{SCC 정의 : 다른 그룹끼리 사이클이 없다.\\
+SCC(V)를 호출 하면 result에 SCC가 분류되어 저장된다.\\
+이 때 그룹은 반드시 위상정렬의 역순으로 반환된다.\\
+sccNumber[i] = i번 정점이 속하는 그룹
+}
+{$\mathcal{O}(V+E)$}
+{cpp}{SCC.cpp}
+
+\Algorithm
+{2-SAT}
+{makeEdge = X||Y인 엣지를 만든다. true = 2X+1, false = 2X\\
+정점들의 참, 거짓 여부가 담겨 있는 벡터를 반환한다. 불가능하면, 빈 벡터를 반환한다\\
+}
+{$\mathcal{O}(V+E)$}
+{cpp}{SCC.cpp}
+
+\Algorithm
+{LCA (최소 공통 조상)}
+{NlogN만에 전처리를 하고, logN에 쿼리를 답한다}
+{}
+{cpp}{LCA.cpp}
+
+\Algorithm
+{BCC - 단절점 & 단절선}
+{}
+{$\mathcal{O}(V+E)$}
+{cpp}{BCC.cpp}
+
+\Algorithm
+{Heavy-light Decomposition}
+{모든 경로가 항상 logN개의 체인만 지난다. set, Segment Tree 등을 끼얹기.\\
+1. adj 채우고 2. make\_tree(root,root) 3.HLD(root,root,root)\\
+가중치가 Edge에 붙는 구현. 노드에 붙으면 쿼리를 DFS\_cnt[x] + 1 대신 DFS\_cnt[x].
+}
+{}
+{cpp}{HLD.cpp}
+
+%\fi
+
+\section{수학}
+
+\Algorithm
+{빠른 거듭제곱 \& 나눗셈의 역원 (페르마 소정리)}
+{a와 MOD가 서로소여야 divmod를 사용 할 수 있다!\\
+fastPow(a,b) : ${(a^b)\%MOD}$를 반환한다\\
+divmod(a,b) : ${(a/b)\%MOD}$를 반환한다
+}
+{}
+{cpp}{divmod.cpp}
+
+\Algorithm
+{조합(nCr) 구하기}
+{Method 1 : 1\simN의 역원을 전처리로 구해놓는다
+Method 2 : 뤼카의 정리
+}
+{Method 1 : init = $\mathcal{O}(N)$, query = $\mathcal{O}(1)$\\
+Method 2 : init = $\mathcal{O}(MOD^2)$, query = $\mathcal{O}(\log_{MOD}N)$}
+{cpp}{comb.cpp}
+
+\Algorithm
+{소수 찾기, 소인수분해 - Easy + 각종 체}
+{sqMAX까지의 소수만 표시하므로, MAX까지 구하려면 i반복문 수정
+}
+{$\mathcal{O}(\log{N}\log{N})$}
+{cpp}{sieve.cpp}
+
+\Algorithm
+{소수 찾기 - Fast (밀러-라빈)}
+{
+}
+{$\mathcal{O}(\log{N}\log{N})$}
+{cpp}{primeFast.cpp}
+
+\Algorithm
+{소인수분해 - Fast (폴라드-로)}
+{밀러 라빈 필요. 소인수분해 결과를 무작위 순서로 반환}
+{$\mathcal{O}(N^{0.25}\log{N})$}
+{cpp}{factorFast.cpp}
+
+\Algorithm
+{FFT (고속 푸리에 변환)}
+{배열 B에 0을 채워넣고 뒤집은 후, B의 꼬리가 i에 있을 때 A와 B를 곱한 값}
+{$\mathcal{O}(N\log{N})$}
+{cpp}{FFT.cpp}
+
+\Algorithm
+{중국인의 나머지 정리 + 확장 유클리드}
+{n[]은 모두 소수여야 한다. a MOD (n의 모든 곱)을 구해준다.\\
+x$\equiv{a}(mod m)$, x$\equiv{b}(mod n)$ 을 만족시키는 x를 구하는 방법.\\
+m과 n을 소인수분해한 후 소수의 제곱꼴의 합동식들로 각각 쪼갠다.이 때 특정 소수에 하여 모순이 생기면 불가능한 경우, 모든 소수에 대해서 모순이 생기지 않으면 전체 식을 CRT로 합치면 된다. 이제 $x\equiv x1 (mod p^k1 )$ 과 $x\equiv x2 (mod p^k2 )$ 가 모순이 생길 조건은 $k1\equiv k2$ 라고 했을 때, $x1\not\equiv x2 (mod p^k1)$ 인 경우이다. 모순이 생기지 않았을 때 답을 구하려면 CRT로 합칠 때 $x\equiv  x2 (mod p^k2 )$ 만을 남기고 합쳐주면 된다.
+}
+{}
+{cpp}{CRT.cpp}
+
+\section{문자열}
+
+\Algorithm
+{KMP}
+{fail[i] = str[0:i]의 접두사이며 접미사인 최대 부분 문자열의 길이 (문자열 전체 제외)}
+{$\mathcal{O}(N+M)$}
+{cpp}{KMP.cpp}
+
+\Algorithm
+{Rabin - Karp 해싱}
+{}
+{}
+{cpp}{Rabin-karp.cpp}
+
+\Algorithm
+{Suffix Array + LCP}
+{suffix array - S에 대한 접미사 배열을 계산한 벡터를 반환\\
+i번째 값은 사전순으로 i번째인 접미사의 시작 인덱스\\
+LCP - 가장 긴 공통 접두사. 사전순으로 i번째 접미사와 i-1번째 접미사의 가장 긴 공통 접두사의 길이. i=0일때는 정의되지 않으므로 벡터의 크기가 1 작다}
+{$\mathcal{O}(N\log{N})$}
+{cpp}{suffix.cpp}
+
+\Algorithm
+{모든 팰린드롬 찾기 - Manacher}
+{i번째 글자를 중심으로 하는 팰린드롬의 반지름을 구해준다\\
+}
+{$\mathcal{O}(N)$}
+{cpp}{manacher.cpp}
+
+\Algorithm
+{Z 알고리즘 - 접미사의 접두사}
+{i번째 접두사, 즉 S[i:]와 S의 최대 공통 접두사(문자열 전체 제외)\\
+접두사이면서 접미사인~ 인 문제에 많이 쓰인다}
+{$\mathcal{O}(N)$}
+{cpp}{Z.cpp}
+
+\Algorithm
+{트라이 - 문자열 전용 set}
+{}
+{$\mathcal{O}(|S|)$}
+{cpp}{trie.cpp}
+
+\Algorithm
+{아호 코라식 - 다중 문자열 KMP}
+{}
+{$\mathcal{O}(N+M)$}
+{cpp}{aho-cora.cpp}
+
+\section{기하}
+
+\Algorithm
+{기본 기하 라이브러리 + CCW}
+{}
+{}
+{cpp}{geog.cpp}
+
+\Algorithm
+{볼록 껍질(컨벡스 헐)}
+{가장 왼쪽, 같을시 아래쪽 점을 시작으로 시계방향으로 탐색.
+일직선의 점을 남기고 싶으면, 등호를 땐다}
+{$\mathcal{O}(N\log{N})$}
+{cpp}{hull.cpp}
+
+\Algorithm
+{회전하는 캘리퍼스 - 볼록 껍질에서 가장 먼 점}
+{볼록 껍질의 모든 점에 대해 가장 먼 점을 구해준다}
+{$\mathcal{O}(N)$}
+{cpp}{calipers.cpp}
+
+\section{기타}
+
+\Algorithm
+{위상 정렬}
+{indegree[]배열은 미리 계산 되있어야 한다.
+}
+{$\mathcal{O}(N)$}
+{cpp}{topo.cpp}
+
+%\Algorithm
+%{이분 탐색}
+%{lo에는 항상 조건을 만족하는 값을 들어가게 하고, hi에는 항상 조건을 만족하지 못하는 값을 들어가게 한다. lo에는 조건을 만족하는 값 중 최대값이 들어간다.}
+%{$\mathcal{O}(\log{N})$}
+%{cpp}{BiSearch.cpp}
+
+%\Algorithm
+%{투포인터}
+%{[i : j)의 합을 담는다}
+%{$\mathcal{O}(N^2)$}
+%{cpp}{twoPointer.cpp}
+
+\Algorithm
+{Mo's Algorithm + Sqrt Decomposition}
+{}
+{$\mathcal{O}(N+Q)\sqrt{N}$}
+{cpp}{MOsqrt.cpp}
+
+\Algorithm
+{방향 그래프 사이클 판정}
+{visit을 -1로 초기화}
+{$\mathcal{O}(V+E)$}
+{cpp}{DirectCycle.cpp}
+
+\Algorithm
+{IO Trick}
+{}
+{}
+{cpp}{IOtrick.cpp}
+
+\Algorithm
+{삼분 탐색}
+{순증가-순감소 혹은 순감소 - 순증가 하는 볼록 함수}
+{}
+{cpp}{ternary.cpp}
+
+\Algorithm
+{Convex Hull Trick}
+{}
+{}
+{cpp}{CHT.cpp}
+
+%\Algorithm
+%{헝가리안 메소드 - 배정문제(일 나눠주기)}
+%{n*m개의 행렬이 있을 때 행과 열이 겹치지 %않게 배정}
+%{$\mathcal{O}(N^3) or \mathcal{O}(MN^2)$}
+%{cpp}{hungMethod.cpp}
+
+\Algorithm
+{Berlekamp-Massey - 선형 점화식 DP 치트키}
+{berlekamp$_$massey : n개의 DP 결괏값이 주어졌을 때, Berlekamp-Massey 알고리즘을 사용하여 해당 DP의 점화식을 찾아주는 루틴. 점화식의 크기가 k면, 2k개 이상의 항이 있어야 답을 찾음이 보장된다.\\
+get$_$nth : 주어진 DP 점화식을 사용하여 n번째 항을 구하는 루틴.}
+{$\mathcal{O}(nk+nlogmod)$, and get n_th $\mathcal{O}(k^2logn)$}
+{cpp}{Berlekamp.cpp}
+
+\Algorithm
+{알쓸신잡}
+{
+*카탈란 수\\
+1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012,742900, 2674440, 9694845, 35357670, 129644790,\\
+${C_0 = 1}$\\
+${C_n+1 = {2(2n+1)/(n+2)}*C_n =}$ return binomial(n * 2, n) / (n + 1);\\
+• 길이가 2n인 올바른 괄호 수식의 수\\
+• n + 1개의 리프를 가진 풀 바이너리 트리의 수\\
+• n + 2각형을 n개의 삼각형으로 나누는 방법의 수\\
+\\
+* Burnside’s Lemma\\
+경우의 수를 세는데, 특정 transform operation(회전, 반사, ..) 해서 같은 경우들은 하나로 친다. 전체 경우의 수는?\\
+- 각 operation마다 이 operation을 했을 때 변하지 않는 경우의 수를 센다 (단, “아무것도 하지 않는다” 라는 operation도 있어야 함!)\\
+- 전체 경우의 수를 더한 후, operation의 수로 나눈다. (답이 맞다면 항상 나누어 떨어져야 한다)\\
+\\
+*알고리즘 게임\\
+Nim Game의 해법 : 각 더미의 돌의 개수를 모두 XOR했을 때 0 이 아니면 첫번째, 0 이면 두번째 플레이어가 승리.\\
+Grundy Number : 어떤 상황의 Grundy Number는, 가능한 다음 상황들의 Grundy Number를 모두 모은 다음, 그 집합에 포함 되지 않는 가장 작은 수가 현재 state의 Grundy Number가 된다. 만약 다음 state가 독립된 여러개의 state들로 나뉠 경우, 각각의 state의 Grundy Number의 XOR 합을 생각한다.\\
+Subtraction Game : 한 번에 k 개까지의 돌만 가져갈 수 있는 경우, 각 더미의 돌의 개수를 k + 1로 나눈 나머지를 XOR 합하여 판단한다.\\
+Index-k Nim : 한 번에 최대 k개의 더미를 골라 각각의 더미에서 아무렇게나 돌을 제거할 수 있을 때, 각 binary digit에 대하여 합을 k + 1로 나눈 나머지를 계산한다. 만약 이 나머지가 모든 digit에 대하여 0이라면 두번째, 하나라도 0이 아니라면 첫번째 플레이어가 승리.\\
+\\
+* Pick’s Theorem\\
+격자점으로 구성된 simple polygon이 주어짐. i 는 polygon 내부의 격자점 수, b 는 polygon 선분 위 격자점 수, A는 polygon의 넓이라고 할 때, 다음과 같은 식이 성립한다. A=I+B/2-1
+}
+{}
+{}{}
+
+\Algorithm
+{자주 쓰는데 헷갈리는 것들}
+{}
+{}
+{cpp}{thinkingFace.cpp}
+
+
+\iffalse
+
+\section{Graph}
+
+\Algorithm
+{Hopcroft-Karp Bipartite Matching}
+{Use \texttt{add\_edge} to add edges, \texttt{match} to get matching, \texttt{getcover} to calculate vertex cover.}
+{$\mathcal{O}(E \sqrt{V})$}
+{cpp}{source/BipartiteMatching.cpp}
+
+\Algorithm
+{Hopcroft-Karp Bipartite Matching}
+{Use \texttt{add\_edge} to add edges, \texttt{match} to get matching, \texttt{getcover} to calculate vertex cover.}
+{$\mathcal{O}(E \sqrt{V})$}
+{cpp}{source/BipartiteMatching.cpp}
+
+\Algorithm
+{General Matching}
+{Use \texttt{init} to init, \texttt{addEdge} to add edges, \texttt{match} to get matching, \texttt{Match} to find maximum matching. Vertices have 1-based index.}
+{$\mathcal{O}(VE)$}
+{cpp}{source/GeneralMatching.cpp}
+
+\section{Data Structure}
+
+\Algorithm
+{Randomized Meldable Heap}
+{Min-heap \texttt{H} is declared as \texttt{Heap<T> H}. You can use \texttt{push}, \texttt{size}, \texttt{empty}, \texttt{top}, \texttt{pop} as \texttt{std::priority\_queue}. Use \texttt{H.meld(G)} to meld contents from \texttt{G} to \texttt{H}. }
+{$\mathcal{O}(log n)$}
+{cpp}{source/MeldableHeap.cpp}
+
+\section{Geometry}
+
+\Algorithm
+{Smallest Enclosing Circle}
+{Use \texttt{solve} with \texttt{vector<Point>}. It returns \texttt{Circle c}, \texttt{c.p} is center, \texttt{c.r} is radius.}
+{$\mathcal{O}(n)$}
+{cpp}{source/SmallestEnclosingCircle.cpp}
+
+
+\fi
+
+\end{document}
