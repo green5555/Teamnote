@@ -24,7 +24,7 @@ struct twoSAT {
         }
         return ret;
     }
-    bool solve(int V=MAX) {
+    vector<int> solve(int V=MAX) {
         V *= 2;
         memset(discovered, -1, sizeof(discovered));
         memset(sccNumber, -1, sizeof(sccNumber));
@@ -53,4 +53,4 @@ struct twoSAT {
         adj[2 * X + !XisTrue].push_back(2 * Y + YisTrue);
         adj[2 * Y + !YisTrue].push_back(2 * X + XisTrue);
     }
-}T;
+};
