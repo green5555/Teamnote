@@ -75,5 +75,5 @@ cout << uniform_int_distribution<int>(0, 10)(rng); //return 0,...,10
 #파이썬
 import sys
 sys.setrecursionlimit(10**7)
-input = sys.stdin.readline().rstrip()
+input = sys.stdin.readline
 a,b,c = map(int, input().rstrip().split())
