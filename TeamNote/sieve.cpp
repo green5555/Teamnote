@@ -1,37 +1,31 @@
 //소수 판별
-const int MAX = 10000000;
-bool isPrime[MAX+2];
-vector<int> prime;
+const int MAX = 1000000;
+bool sieve[MAX+1];
 void find_prime(){
-	memset(isPrime, true, sizeof(isPrime));
-	isPrime[0] = isPrime[1] = false;
-	int sqMAX = sqrt(MAX)+1;
-	for(long long i=2; i<=sqMAX; ++i)
-		if(isPrime[i]){
-			prime.push_back(i);
-			for(long long j=i*i; j<=MAX; j+=i)
-				isPrime[j] = false;
-		}
+	sieve[0] = sieve[1] = 1;
+	for(ll i=2; i*i<=MAX; ++i)
+		if(sieve[i] == 0)
+			for(ll j=i*i; j<=MAX; j+=i)
+				sieve[j] = 1;
 }
 
 //소인수분해
-const int MAX = 10000000;
-int isPrime[MAX+2];
+const int MAX = 1000000;
+int sieve[MAX+1];
 void find_prime(){
-	memset(isPrime, -1, sizeof(isPrime));
-	int sqMAX = sqrt(MAX)+1;
-	for(long long i=2; i<=sqMAX; ++i)
-		if(isPrime[i] == -1)
-			for(long long j=i*i; j<=MAX; j+=i)
-				if(isPrime[j] == -1)
-					isPrime[j] = i;
+	memset(sieve, -1, sizeof(sieve));
+	for(ll i=2; i*i<=MAX; ++i)
+		if(sieve[i] == -1)
+			for(ll j=i*i; j<=MAX; j+=i)
+				if(sieve[j] == -1)
+					sieve[j] = i;
 }
 void print_factor(int n){
-	while(isPrime[n] != -1){
-		cout << isPrime[n] << ' ';
-		n /= isPrime[n];
+	while(sieve[n] != -1){
+		cout << sieve[n] << '\n';
+		n /= sieve[n];
 	}
-    cout << n;
+    cout << n << '\n';
 }
 
 //1~N의 약수의 개수 구하기 O(NlogN)
