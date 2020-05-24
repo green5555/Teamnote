@@ -2,8 +2,8 @@
 const int MAX, MOD; //MAX = n의 최대값
 long long inv[MAX+1], fac[MAX+1], facInv[MAX+1];
 void combInit(){
-    fac[1] = 1;
-    for(int i=2; i<=MAX; ++i)
+    fac[0] = 1;
+    for(int i=1; i<=MAX; ++i)
         fac[i] = (fac[i-1]*i) %MOD;
     inv[1] = 1;
     for(int i=2; i<=MAX; ++i)
