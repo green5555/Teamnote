@@ -5,6 +5,7 @@ typedef pair<int,int> pii;
 typedef pair<ll,ll> pll;
 #define xx first
 #define yy second
+#define all(v) (v).begin(), (v).end()
 
 int main(){
 	ios_base::sync_with_stdio(0);
