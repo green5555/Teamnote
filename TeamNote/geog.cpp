@@ -69,3 +69,12 @@ inline double dist(const Line& line, const Point& point, bool segment = false) {
     if (segment && diff(c2, c1) <= 0) return dist(line.pos + line.dir, point);
     return dist(line.pos + line.dir * (c1 / c2), point);
 }
+
+//ccw의 오버플로우 조심
+inline bool isCross(const line &a, const line &b){
+    auto ab = ccw(a.xx, a.yy, b.xx) * ccw(a.xx, a.yy, b.yy);
+    auto cd = ccw(b.xx, b.yy, a.xx) * ccw(b.xx, b.yy, a.yy);
+    if(!ab && !cd) // c a-b d 혹은 a c-d b
+        return (min(b.xx, b.yy) <= max(a.xx, a.yy)) && (min(a.xx, a.yy) <= max(b.xx, b.yy));
+    return (ab <= 0) && (cd <= 0);
+}
