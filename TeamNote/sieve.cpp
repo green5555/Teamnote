@@ -3,10 +3,11 @@ const int MAX = 1000000;
 bool sieve[MAX+1];
 void find_prime(){
 	sieve[0] = sieve[1] = 1;
-	for(ll i=2; i<=MAX; ++i)
+	for(ll i=2; i*i<=MAX; ++i){ // i<=MAX if want prime vector
 		if(sieve[i] == 0)
 			for(ll j=i*i; j<=MAX; j+=i)
 				sieve[j] = 1;
+	}
 }
 
 //소인수분해
