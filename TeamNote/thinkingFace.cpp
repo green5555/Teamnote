@@ -77,6 +77,13 @@ cout << uniform_int_distribution<int>(0, 10)(rng); //return 0,...,10
 #pragma GCC optimization ("O3")
 #pragma GCC optimization ("unroll-loops")
 
+//랜덤
+double start_time = clock();
+while(1){
+	//...
+	if((clock() - start_time) / CLOCKS_PER_SEC >= 0.99) break; // 0.99s
+}
+
 #파이썬
 import sys
 sys.setrecursionlimit(10**7)
