@@ -13,9 +13,11 @@ struct Hashing{
         for(int i=0; i<sz; ++i)
             h[i+1] = (h[i] + (s[i]+1) * ppow[i]) % m;
     }
-    bool compare(int l1, int len, Hashing &s2, int l2){
-        ll v1 = (h[l1+len] - h[l1] + m) % m;
-        ll v2 = (s2.h[l2+len] - s2.h[l2] + m) % m;
+    inline ll get(int l, int len){
+        return (h[l+len] - h[l] + m) % m;
+    }
+    bool compare(int l1, int len, Hashing &h2, int l2){
+        ll v1 = get(l1, len), v2 = h2.get(l2, len);
         if(l1 < l2) v1 = (v1 * ppow[l2 - l1]) % m;
         if(l1 > l2) v2 = (v2 * ppow[l1 - l2]) % m;
         return v1 == v2;
