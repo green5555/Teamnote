@@ -1,5 +1,5 @@
 struct Hashing{
-    const ll base=31, m=1e9+9; //random base : 0.3m ~ 0.7m?
+    const ll base=257, m=1e9+9; //random base : 0.3m ~ 0.7m?
     int sz;
     vector<ll> ppow, h;
     Hashing(const string &s){
