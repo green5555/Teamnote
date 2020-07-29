@@ -6,9 +6,8 @@ struct Hashing{
         sz = s.size();
         ppow.resize(sz);
         ppow[0] = 1;
-        for(int i=1; i<sz; ++i) {
+        for(int i=1; i<sz; ++i)
             ppow[i] = (ppow[i - 1] * base) % m;
-        }
         h.resize(sz+1);
         for(int i=0; i<sz; ++i)
             h[i+1] = (h[i] + (s[i]+1) * ppow[i]) % m;
