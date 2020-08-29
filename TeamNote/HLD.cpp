@@ -63,7 +63,7 @@ struct HeavyLightDecomposition{
     int query(int x, int y){
         if(chain[DFS_cnt[x]] == chain[DFS_cnt[y]]){ //같은 체인에 속하는 경우
             if(level[x] > level[y]) swap(x,y);
-            //노드에 가중치가 달린 경우 DFS_cnt[x]+1
+            //노드에 가중치가 달린 경우 DFS_cnt[x]+1 -> DFS_cnt[x]
             return S.query(DFS_cnt[x] + 1, DFS_cnt[y]);
         }
         int x_head = chain[DFS_cnt[x]], y_head = chain[DFS_cnt[y]];
