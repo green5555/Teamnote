@@ -1,4 +1,4 @@
-void fft(vector e<complex<double>> &a, bool invert){
+void fft(vector <complex<double>> &a, bool invert){
     int n = a.size();
     for (int i=1,j=0;i<n;i++){
         int bit = n >> 1;
@@ -23,8 +23,7 @@ void fft(vector e<complex<double>> &a, bool invert){
         for (int i=0;i<n;i++) a[i] /= n;
     }
 }
-vector<int> multiply(const vector<int> &a,const vector<int> &b){
-	vector<int> res;
+void multiply(const vector<int> &a,const vector<int> &b, vector<int> &ret){
     vector <complex<double>> fa(a.begin(), a.end()), fb(b.begin(), b.end());
     int n = 1;
     while (n < max((int)a.size(),(int)b.size())) n <<= 1;
@@ -32,7 +31,6 @@ vector<int> multiply(const vector<int> &a,const vector<int> &b){
     fft(fa,false); fft(fb,false);
     for (int i=0;i<n;i++) fa[i] *= fb[i];
     fft(fa,true);
-    res.resize(n);
-    for (int i=0;i<n;i++) res[i] = int(fa[i].real()+(fa[i].real()>0?0.5:-0.5));
-    return res;
+    ret.resize(n);
+    for (int i=0;i<n;i++) ret[i] = int(fa[i].real()+(fa[i].real()>0?0.5:-0.5));
 }
