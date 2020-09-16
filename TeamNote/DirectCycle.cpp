@@ -1,4 +1,4 @@
-int visit[MAX] = {};
+int visit[MAX];
 bool haveCycle(int here){
 	if(visit[here])
 		return visit[here] == -1;
@@ -8,3 +8,4 @@ bool haveCycle(int here){
 	visit[here] = 1;
 	return false;
 }
+memset(visit, -1, sizeof(visit));
