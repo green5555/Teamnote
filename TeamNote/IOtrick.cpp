@@ -24,11 +24,3 @@ namespace fio {
 		return neg ? -ret : ret;
 	}
 }
-
-//string stream
-int num;
-stringstream stream; 
-string string = "1 2 3 a 4"; 
-stream.str(string); 
-while( stream >> num )
-	cout << num << ' '; //1 2 3
