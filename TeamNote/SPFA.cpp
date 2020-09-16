@@ -1,5 +1,7 @@
-bool SPFA(int n, int start, vector<int> &dist){
-    dist = vector<int>(n, INF);
+const int MAX; const ll INF;
+vector<pll> adj[555]; //{정점, 가중치}
+bool SPFA(int start, vector<ll> &dist){
+    dist = vector<ll>(MAX, INF);
     queue<int> Q;
     bool inQ[MAX] = {};
     int visit[MAX] = {};
@@ -11,13 +13,13 @@ bool SPFA(int n, int start, vector<int> &dist){
         int here = Q.front();
         Q.pop(); inQ[here] = false;
         for(auto &P : adj[here]){
-            int there = P.first, newDist = dist[here] + P.second;
+            ll there = P.first, newDist = dist[here] + P.second;
             if(newDist < dist[there]){
                 dist[there] = newDist;
                 if(!inQ[there]){
                     Q.push(there);
                     inQ[there] = true;
-                    if(++visit[there] >= n) return false;
+                    if(++visit[there] >= n+1) return false;
                 }
             }
         }
