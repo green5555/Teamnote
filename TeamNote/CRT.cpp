@@ -1,25 +1,25 @@
 //ac + bd = gcd(a,b)가 되는 (c,d)를 찾는다
-pair<long long, long long> extended_gcd(long long a, long long b) {
+pll extended_gcd(ll a, ll b) {
 	if(b == 0) return make_pair(1, 0);
-	pair<long long, long long> t = extended_gcd(b, a % b);
+	pll t = extended_gcd(b, a % b);
 	return make_pair(t.second, t.first - t.second * (a / b));
 }
 
 //ax = gcd(a,m)%m 이 되는 x를 찾는다
-long long modinverse(long long a, long long m) {
+ll modinverse(ll a, ll m) {
 return (extended_gcd(a, m).first % m + m) % m;
 }
 
 //a[i] % n[i] 가 동일한 최소 X를 찾아줌
-long long chinese_remainder(long long *a, long long *n, int size) {
+ll chinese_remainder(ll *a, ll *n, int size) {
 	if (size == 1) return *a;
-	long long tmp = modinverse(n[0], n[1]);
-	long long tmp2 = (tmp * (a[1] - a[0]) % n[1] + n[1]) % n[1];
-	long long ora = a[1];
-	long long tgcd = gcd(n[0], n[1]);
+	ll tmp = modinverse(n[0], n[1]);
+	ll tmp2 = (tmp * (a[1] - a[0]) % n[1] + n[1]) % n[1];
+	ll ora = a[1];
+	ll tgcd = gcd(n[0], n[1]);
 	a[1] = a[0] + n[0] / tgcd * tmp2;
 	n[1] *= n[0] / tgcd;
-	long long ret = chinese_remainder(a + 1, n + 1, size - 1);
+	ll ret = chinese_remainder(a + 1, n + 1, size - 1);
 	n[1] /= n[0] / tgcd;
 	a[1] = ora;
 	return ret;
