@@ -15,22 +15,3 @@ vector<Point> convex_hull(vector<Point>& dat) {
 	upper.insert(upper.end(), ++lower.rbegin(), --lower.rend());
 	return upper;
 }
-
-//IF int or long long
-#define xx first
-#define yy second
-typedef long long ll;
-typedef pair<ll,ll> Point;
-
-inline ll outer(const Point a, const Point b) { //외적
-	return a.xx * b.yy - a.yy * b.xx;
-}
-
-inline ll ccw(const Point& a, const Point& b, const Point& c) {
-	auto tmp = outer({b.xx - a.xx, b.yy - a.yy}, {c.xx - a.xx, c.yy - a.yy});
-	return (tmp ? (tmp < 0 ? -1 : 1) : 0);
-}
-
-//IF double
-struct Point + operator -
-diff, outer , ccw
