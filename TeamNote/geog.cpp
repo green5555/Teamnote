@@ -1,7 +1,7 @@
 // Integer & Float
 typedef pair<geom_t, geom_t> Point;
-Point operator+ (const Point &l, const Point &r){ return {l.xx+r.xx, l.yy+r.yy}; }
-Point operator- (const Point &l, const Point &r){ return {l.xx-r.xx, l.yy-r.yy}; }
+Point operator+ (const Point &a, const Point &b){ return {a.xx+b.xx, a.yy+b.yy}; }
+Point operator- (const Point &a, const Point &b){ return {a.xx-b.xx, a.yy-b.yy}; }
 Point rot45(Point p) { return {p.xx+p.yy, p.yy-p.xx}; }
 inline geom_t inner(const Point& a, const Point& b) { return a.xx*b.xx + a.yy*b.yy; }
 inline geom_t outer(const Point& a, const Point& b) { return a.xx*b.yy - a.yy*b.xx; }
