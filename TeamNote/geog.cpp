@@ -6,6 +6,8 @@ inline ll ccw(const Point& a, const Point& b, const Point& c) {
 }
 
 Point operator+ (const Point &a, const Point &b){ return {a.xx+b.xx, a.yy+b.yy}; }
+Point operator* (const Point &a, const Point &b){ return {a.xx*b.xx, a.yy*b.yy}; }
+inline ll get_hypot(const Point& a, const Point& b){ auto c = a-b; return c.xx*c.xx + c.yy*c.yy;}
 inline ll inner(const Point& a, const Point& b) { return a.xx*b.xx + a.yy*b.yy; }
 
 inline bool intersect(const pair<Point,Point> &a, const pair<Point,Point> &b){ //직선 a와 b가 교차?
@@ -18,5 +20,12 @@ inline bool intersect(const pair<Point,Point> &a, const pair<Point,Point> &b){ /
 
 bool angle_cmp(const Point &a, const Point &b){
     if( (Point(0,0) < a) ^ (Point(0,0) < b) ) return a > b;
-    return ccw(Point(0,0), a, b) >= 0; // 0일때 같은 각도
+    return ccw(Point(0,0), a, b) > 0; // 0일때 같은 각도
+}
+
+// float
+typedef pair<double, double> Point;
+Point rotation(const Point &pt, const double &theta){
+    double s = sin(theta), c = cos(theta);
+    return {c*pt.xx - s*pt.yy, s*pt.xx + c*pt.yy};
 }
