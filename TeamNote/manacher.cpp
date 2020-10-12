@@ -1,3 +1,4 @@
+// s=".a.b.c.d.e." -> m[i] = s[i]가 중심인 '실제' 팰린드롬의 길이
 void manacher(const string& s, int m[]) {
     int r = -1, p = -1;
     for (int i=0; i<s.size(); ++i) {
