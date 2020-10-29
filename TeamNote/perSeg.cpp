@@ -1,3 +1,4 @@
+//사용 금지 : 벡터 재할당
 const int MAX = 100100;
 struct PersistentSegmentTree{
 	struct Node{
