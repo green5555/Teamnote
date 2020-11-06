@@ -13,7 +13,7 @@ inline ll inner(const Point& a, const Point& b) { return a.xx*b.xx + a.yy*b.yy; 
 inline bool intersect(const pair<Point,Point> &a, const pair<Point,Point> &b){ //직선 a와 b가 교차?
     auto ab = ccw(a.xx, a.yy, b.xx) * ccw(a.xx, a.yy, b.yy);
     auto cd = ccw(b.xx, b.yy, a.xx) * ccw(b.xx, b.yy, a.yy);
-    if(!ab && !cd) // c a-b d 혹은 a c-d b
+    if(!ab && !cd) // a1--b1==a2__b2 or b1--a1==b2__a2
         return (min(b.xx, b.yy) <= max(a.xx, a.yy)) && (min(a.xx, a.yy) <= max(b.xx, b.yy));
     return (ab <= 0) && (cd <= 0);
 }
