@@ -1,52 +1,50 @@
-const int MAX, INF;
-struct EdmondKarp{
-    struct Edge{
-        int next, cap, flow=0;
-        Edge* rev;
-        Edge(){};
-        Edge(int _next, int _cap) : next(_next), cap(_cap) {};
-        int remain(){
-            return cap - flow;
-        }
-        void push(int x){
-            flow += x;
-            rev -> flow -= x;
-        }
-    };
-    vector<Edge*> adj[MAX];
-    inline void makeEdge(int u, int v, int cap){
-        Edge *uv = new Edge(v, cap), *vu = new Edge(u, 0);
-        uv->rev = vu, vu->rev = uv;
-        adj[u].push_back(uv);
-        adj[v].push_back(vu);
-    }
-    int maxFlow(int S, int E){
-        int total = 0;
-        while(true){
-            int parent[MAX];
-            Edge *path[MAX];
-            memset(parent, -1, sizeof(parent));
-            queue<int> Q;
-            Q.push(S);
-            while(!Q.empty()){
-                int here = Q.front(); Q.pop();
-                for(auto e : adj[here]){
-                    int there = e->next;
-                    if(e->remain()>0 && parent[there] == -1){
-                        Q.push(there);
-                        parent[there] = here;
-                        path[there] = e;
-                        if(there == E) break;
-                    }
-                }
-            }
-            if(parent[E] == -1) return total;
-            int flow = INF;
-            for(int i=E; i!=S; i=parent[i])
-                flow = min(flow, path[i]->remain());
-            for(int i=E; i!=S; i=parent[i])
-                path[i]->push(flow);
-            total += flow;
-        }
-    }
+const int MAX = 1000, INF = INT_MAX;
+struct maxflow {
+	struct edge {
+		int next, cap, flow = 0, rev_idx;
+		edge() {}
+		edge(int n, int c) : next(n), cap(c) {}
+		int remain() {
+			return cap - flow;
+		}
+	};
+	vector<edge> adj[MAX];
+	void makeEdge(int u, int v, int c) {
+		adj[u].emplace_back(v, c);
+		adj[v].emplace_back(u, 0);
+		adj[u].back().rev_idx = adj[v].size() - 1;
+		adj[v].back().rev_idx = adj[u].size() - 1;
+	}
+	int parent[MAX];
+	pii path[MAX];
+	int solve(int S, int E) {
+		int ans = 0;
+		queue<int> q;
+		while (1) {
+			memset(parent, -1, sizeof(parent));
+			q.push(S);
+			while (!q.empty()) {
+				int u = q.front(); q.pop();
+				for (int i = 0; i < adj[u].size(); ++i) {
+					auto &e = adj[u][i];
+					if (e.remain() > 0 && parent[e.next] == -1) {
+						parent[e.next] = u;
+						path[e.next] = { u, i };
+						q.emplace(e.next);
+					}
+				}
+			}
+			if (parent[E] == -1) break;
+			int ret = INF;
+			for (int i = E; i != S; i = parent[i])
+				ret = min(ret, adj[path[i].xx][path[i].yy].remain());
+			for (int i = E; i != S; i = parent[i]) {
+				auto &e = adj[path[i].xx][path[i].yy];
+				e.flow += ret;
+				adj[e.next][e.rev_idx].flow -= ret;
+			}
+			ans += ret;
+		}
+		return ans;
+	}
 };
