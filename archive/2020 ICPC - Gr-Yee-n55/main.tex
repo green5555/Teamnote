@@ -1,0 +1,482 @@
+\documentclass[landscape, 10pt, a4paper, oneside, twocolumn]{extarticle}
+\usepackage{kotex}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{makecell}
+\usepackage{setspace}
+\usepackage{teamnote}
+
+\teamnote{Hongik University}{Gr-Yee-n55}{c}
+
+\ShowUsage
+\ShowComplexity
+\HideAuthor
+
+\begin{document}
+
+\maketitlepage
+\pagebreak
+
+
+
+% Make Pagebreak if you want.
+% \pagebreak
+
+
+
+% 뺀거 :
+% 뤼카
+% 다익
+% Z
+% 헝가리안
+% 위상정렬
+
+
+
+
+%\iffalse
+
+\Algorithm
+{템플릿}
+{}
+{}
+{cpp}{code/template.cpp}
+
+\section{자료구조}
+
+\Algorithm
+{펜윅 트리 (BIT)}
+{1-index인거 항상 조심!! kth(k) = 1-indexed k번째 원소}
+{}
+{cpp}{code/BIT.cpp}
+
+\Algorithm
+{세그먼트 트리}
+{구간합 세그먼트 트리}
+{}
+{cpp}{code/seg.cpp}
+
+\Algorithm
+{레이지 세그먼트 트리}
+{구간합 세그먼트 트리}
+{}
+{cpp}{code/lazySeg.cpp}
+
+\Algorithm
+{유니온 파인드}
+{parent[i] ${<}$ 0 이면 해당 집합의 크기
+}
+{}
+{cpp}{code/UF.cpp}
+
+ \Algorithm
+{BBST with k-th (Ordered Tree)}
+{}
+{}
+{cpp}{code/OrderTree.cpp}
+
+\Algorithm
+{퍼시스턴트 세그먼트 트리}
+{공간 복잡도가 NlogN인 2차원 세그먼트 트리}
+{}
+{cpp}{code/perSeg.cpp}
+
+
+
+\section{그래프}
+
+\Algorithm
+{SCC (타잔 알고리즘)}
+{
+같은 그룹끼리는 사이클이 항상 있고, 다른 그룹끼리는 사이클이 절대 없다. $scc$에 그룹이 위상정렬의 역순으로 정렬됨.
+}
+{$\mathcal{O}(V+E)$}
+{cpp}{code/SCC.cpp}
+
+\Algorithm
+{2-SAT}
+{$(X1||Y1)\&\&(X2||Y2)\&\&\dots$
+}
+{$\mathcal{O}(V+E)$}
+{cpp}{code/2sat.cpp}
+
+\Algorithm
+{BCC - 단절점, 단절선}
+{단방향 그래프의 단절점과 단절선. }
+{$\mathcal{O}(V+E)$}
+{cpp}{code/BCC.cpp}
+
+\Algorithm
+{SPFA (벨만 포드)}
+{vector${<}$int${>}$ adj[MAX] = (가중치, 번호)}
+{$\mathcal{O}(VE),{}Average {O}(E)$}
+{cpp}{code/spfa.cpp}
+
+\Algorithm
+{방향 그래프 사이클 판정}
+{}
+{}
+{cpp}{code/cycle.cpp}
+
+\Algorithm
+{다익스트라 알고리즘}
+{}
+{$\mathcal{O}((V+E)log(V+E))$}
+{cpp}{code/dijk.cpp}
+
+\Algorithm
+{오프라인 동적 연결성 판정}
+{}
+{$\mathcal{O}(Qlg^2Q)$}
+{cpp}{code/connectivity.cpp}
+
+
+
+
+\section{트리}
+
+\Algorithm
+{LCA (최소 공통 조상)}
+{}
+{init - $\mathcal{O}(NlogN)$, query - $\mathcal{O}(logN)$}
+{cpp}{code/LCA.cpp}
+
+\Algorithm
+{Heavy-light Decomposition}
+{모든 경로가 항상 logN개의 체인만 지난다. set, Segment Tree 등을 끼얹기. 1. adj 채우고 2. make\_tree(root,root) 3.HLD(root,root,root). 가중치가 간선에 붙은 구현이며, 정점에 붙으면 쿼리를 DFS\_cnt[x]+1 -> DFS\_cnt[x].
+}
+{}
+{cpp}{code/HLD.cpp}
+
+\Algorithm
+{Centroid Decomposition}
+{트리에서 분할정복
+}
+{}
+{cpp}{code/centroid.cpp}
+
+
+
+
+\section{플로우}
+
+\Algorithm
+{이분 매칭 - Easy}
+{ 쾨닉의 정리 - 최소 버텍스 커버 = 최대 이분 매칭
+\\(A 중 소스에서 도달 불가능 + B 중 소스에서 도달 가능)}
+{$\mathcal{O}(VE)$}
+{cpp}{code/biMatch.cpp}
+
+\Algorithm
+{이분 매칭 - Fast (호프크로프트 카프)}
+{n = A의 크기, MAX = max(Asize,Bsize)\\
+1. bfs-bmatching으로 레벨[=매칭 중이지 않은 정점과의 최단거리]을 매긴다.\\
+2. dfs-bmatching으로 level을 이용해 효율적으로 이분매칭을 할 수 있다
+}
+{$\mathcal{O}(E \sqrt{V})$}
+{cpp}{code/Hop-Karp.cpp}
+
+\Algorithm
+{최대 플로우 - Easy (에드몬드 카프)}
+{Max-Flow Min-Cut : S와 E로 정점 그룹을 나눌 때, 최대 매칭이 곧 최소 컷의 용량의 합이다. 즉, 잔여 용량이 남은 간선을 타고 갈 수 있는 정점은 S에 속한다.}
+{$\mathcal {}min({O}(VE^2), {O}(Ef))$}
+{cpp}{code/Ed-Karp.cpp}
+
+\Algorithm
+{최대 플로우 - Fast (디닉)}
+{INF = 최대 유량 값, 0-1 cap에서 $\mathcal {}min({O}(EV^{2/3}), {O}(E^{3/2}))$\\
+레벨은 "소스까지의 최단거리의 간선의 개수"를 의미한다.\\
+BFS로 '레벨 그래프'를 만든다. 레벨 그래프에서 포함하는 간선은\\
+1. 용량이 남아있는 간선 2. 레벨의 차이가 1인 정점을 연결하는 간선\\
+레벨 그래프를 생성 하고, 에드몬드 카프처럼 DFS를 돌려 유량을 흘려보내 준다.
+}
+{$\mathcal{O}(EV^2)$}
+{cpp}{code/dinic.cpp}
+
+\Algorithm
+{MCMF (Minimum Cost Maximum Flow)}
+{INF = 가중치의 최장거리. (가중치의 최소값, 유량의 최대값)을 반환한다.}
+{$\mathcal{O}(VEf),{}Average = {O}(Ef)$}
+{cpp}{code/MCMF.cpp}
+
+
+
+
+
+\section{수학}
+
+\Algorithm
+{빠른 조합(nCr) + 나눗셈 역원}
+{1$\sim$N의 역원을 전처리.
+}
+{}
+{cpp}{code/comb.cpp}
+
+\Algorithm
+{체(sieve) : 소수, 소인수분해, 오일러 피}
+{sqMAX까지의 소수만 표시하므로, MAX까지 구하려면 i반복문 수정
+}
+{$\mathcal{O}(N\log\log{N})$}
+{cpp}{code/sieve.cpp}
+
+\Algorithm
+{소수 찾기 - Fast (밀러-라빈)}
+{}
+{$\mathcal{O}(\log{N}\log{N})$}
+{cpp}{code/primeFast.cpp}
+
+\Algorithm
+{소인수분해 - Fast (폴라드-로)}
+{밀러 라빈 필요. 소인수분해 결과를 무작위 순서로 반환}
+{$\mathcal{O}(N^{0.25}\log{N})$}
+{cpp}{code/factorFast.cpp}
+
+\Algorithm
+{FFT (고속 푸리에 변환)}
+{A,B를 크기가 $2^K$꼴이 될때까지 0을 채워넣고 뒤집은 후, \\B의 꼬리가 i에 있을 때 A와 B를 곱한 값}
+{$\mathcal{O}(N\log{N})$}
+{cpp}{code/FFT.cpp}
+
+\Algorithm
+{중국인의 나머지 정리 + 확장 유클리드}
+{n[]은 모두 소수여야 한다. a $\%$ (n의 모든 곱)을 구해준다.}
+{}
+{cpp}{code/CRT.cpp}
+
+\Algorithm
+{mint - 빠른 모듈러 연산}
+{}
+{}
+{cpp}{code/mint.cpp}
+
+
+\section{문자열}
+
+\Algorithm
+{해싱}
+{}
+{}
+{cpp}{code/hash.cpp}
+
+\Algorithm
+{트라이 (문자열 전용 set)}
+{}
+{$\mathcal{O}(|S|)$}
+{cpp}{code/trie.cpp}
+
+\Algorithm
+{KMP}
+{fail[i] = str[0~i]의 접두사이며 접미사인 최대 부분 문자열의 길이)}
+{$\mathcal{O}(N+M)$}
+{cpp}{code/KMP.cpp}
+
+
+\Algorithm
+{접미사 배열 (Suffix Array + LCP)}
+{suffix array - S에 대한 접미사 배열을 계산한 벡터를 반환\\
+i번째 값은 사전순으로 i번째인 접미사의 시작 인덱스\\
+LCP - 가장 긴 공통 접두사. 사전순으로 i번째 접미사와 i-1번째 접미사의 가장 긴 공통 접두사의 길이. i=0일때는 정의되지 않으므로 벡터의 크기가 1 작다}
+{$\mathcal{O}(N\log{N})$}
+{cpp}{code/suffix.cpp}
+
+\Algorithm
+{모든 팰린드롬 찾기 - Manacher}
+{i번째 글자를 중심으로 하는 팰린드롬의 반지름을 구해준다. \\
+$\#$ 같은 더미를 끼워서 사용. $\mathcal{O}(N)$
+}
+{$\mathcal{O}(N)$}
+{cpp}{code/manacher.cpp}
+
+\Algorithm
+{Z Algorithm}
+{Z[i] : S의 prefix이면서 S[i~]의 prefix인 최대 길이}
+{$\mathcal{O}(N\log{N})$}
+{cpp}{code/Z.cpp}
+
+\Algorithm
+{아호코라식 (한 문자열 : 여러 패턴)}
+{}
+{}
+{cpp}{code/ahocora.cpp}
+
+
+\section{DP}
+
+\Algorithm
+{컨벡스 헐 트릭 (Convex Hull Trick; CHT)}
+{$dp[i] = min(0 <= j < i){A(i)B(j) + C(j)} + D(i)$}
+{}
+{cpp}{code/CHT.cpp}
+
+\Algorithm
+{리차오 트리(Li Chao Tree)}
+{$y=ax+b$의 $max\{f(x)\}$를 세그트리로}
+{}
+{cpp}{code/LiChao.cpp}
+
+\Algorithm
+{벌레캠프(Berlekamp-Massey)}
+{점화식 길이 k의 3배(2배?)의 초항을 넣어준다.}
+{$\mathcal{O}(nk+nlogmod), nth\_term = \mathcal{O}(k^2logn)$}
+{cpp}{code/Berlekamp.cpp}
+
+\Algorithm
+{Monotone Queue (덱으로 최소값)}
+{}
+{}
+{cpp}{code/monoque.cpp}
+
+
+
+\section{기하}
+
+\Algorithm
+{기본 기하 라이브러리 (CCW)}
+{}
+{}
+{cpp}{code/geo.cpp}
+
+\Algorithm
+{볼록 껍질(컨벡스 헐)}
+{가장 왼쪽, 같을시 아래쪽 점을 시작으로 시계방향으로 탐색.
+일직선의 점을 남기고 싶으면, 등호를 땐다}
+{$\mathcal{O}(N\log{N})$}
+{cpp}{code/hull.cpp}
+
+\Algorithm
+{회전하는 캘리퍼스 - 볼록 껍질에서 가장 먼 점}
+{볼록 껍질의 모든 점에 대해 가장 먼 점을 구해준다}
+{$\mathcal{O}(N)$}
+{cpp}{code/calipers.cpp}
+
+
+\section{기타}
+
+\Algorithm
+{Mo's Algorithm + Sqrt Decomposition}
+{$\mathcal{O}(N+Q)\sqrt{N}$}
+{$\mathcal{O}(N+Q)\sqrt{N}$}
+{cpp}{code/MOs.cpp}
+
+\Algorithm
+{삼분 탐색}
+{순증가-순감소 혹은 순감소 - 순증가 하는 볼록 함수}
+{}
+{cpp}{code/ternary.cpp}
+
+\Algorithm
+{유용한 이론들}
+{}
+{}
+{}{}
+% {tex}{code/useful.txt}
+
+\begin{itemize}
+    \setlength\itemsep{0.1em}
+    
+\item 카탈란 수\\
+1, 1, 2, 5, 14, 42, 132, 429, 1430, 4862, 16796, 58786, 208012,742900\\
+$C_n = binomial(n * 2, n) / (n + 1);$\\
+- 길이가 2n인 올바른 괄호 수식의 수\\
+- n + 1개의 리프를 가진 풀 바이너리 트리의 수\\
+- n + 2각형을 n개의 삼각형으로 나누는 방법의 수
+
+\item Burnside’s Lemma\\
+경우의 수를 세는데, 특정 transform operation(회전, 반사, ..) 해서 같은 경우들은 하나로 친다. 전체 경우의 수는? 각 operation마다 이 operation을 했을 때 변하지 않는 경우의 수를 센다 (단, “아무것도 하지 않는다” 라는 operation도 있어야 함!) 전체 경우의 수를 더한 후, operation의 수로 나눈다. (답이 맞다면 항상 나누어 떨어져야 한다)
+
+\item 알고리즘 게임\\
+- Nim Game의 해법 : 각 더미의 돌의 개수를 모두 XOR했을 때 0 이 아니면 첫번째, 0 이면 두번째 플레이어가 승리.\\
+- Grundy Number : 어떤 상황의 Grundy Number는, 가능한 다음 상황들의 Grundy Number를 모두 모은 다음, 그 집합에 포함 되지 않는 가장 작은 수가 현재 state의 Grundy Number가 된다. 만약 다음 state가 독립된 여러개의 state들로 나뉠 경우, 각각의 state의 Grundy Number의 XOR 합을 생각한다.\\
+- Subtraction Game : 한 번에 k 개까지의 돌만 가져갈 수 있는 경우, 각 더미의 돌의 개수를 k + 1로 나눈 나머지를 XOR 합하여 판단한다.\\
+- Index-k Nim : 한 번에 최대 k개의 더미를 골라 각각의 더미에서 아무렇게나 돌을 제거할 수 있을 때, 각 binary digit에 대하여 합을 k + 1로 나눈 나머지를 계산한다. 만약 이 나머지가 모든 digit에 대하여 0이라면 두번째, 하나라도 0이 아니라면 첫번째 플레이어가 승리.
+
+\item Pick’s Theorem\\
+격자점으로 구성된 simple polygon이 주어짐. I 는 polygon 내부의 격자점 수, B 는 polygon 선분 위 격자점 수, A는 polygon의 넓이라고 할 때, 다음과 같은 식이 성립한다. $A=I+B/2-1$
+
+\item 가장 가까운 두 점 : 분할정복으로 가까운 6개의 점만 확인
+
+\item 홀의 결혼 정리 : 이분그래프(L-R)에서, 모든 L을 매칭하는 필요충분 조건 = L에서 임의의 부분집합 S를 골랐을 때, 반드시 (S의 크기) $<=$ (S와 연결되어있는 모든 R의 크기)이다.
+
+\item 오일러 정리 : V - E + f(면)가 일정
+
+\item 소수 : 10 007 , 10 009 , 10 111 , 31 567 , 70 001 , 1 000 003 , 1 000 033 , 4 000 037 , 99 999 989 , 999 999 937 , 1 000 000 007 , 1 000 000 009 , 9 999 999 967 , 99 999 999 977
+
+\item 소수 개수 : (1e5 이하 : 9592), (1e7 이하 : 664 579) , (1e9 이하 : 50 847 534) 
+
+\item $10^{15}$ 이하의 정수 범위의 나눗셈 한번은 오차가 없다.
+
+\item N의 약수의 개수 = $O(N^{1/3})$, N의 약수의 합 = $O(NloglogN)$
+
+\item $\phi(mn) = \phi(m) \phi(n) , \phi(pr^n) = pr^n - pr^{n-1} , a^{\phi(n)} \equiv 1 \pmod{n} \text{if coprime}$
+
+\end{itemize}
+
+\Algorithm
+{자주 쓰이는 테크닉들}
+{}
+{}
+{cpp}{code/thinkingFace.cpp}
+
+
+\newpage
+\onehalfspacing
+\begin{Large}\textbf{- Checklist}\end{Large} 
+\begin{small}(thx to evenharder)\end{small}
+\begin{table}[H]
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Pre-submit} & \textbf{Wrong answer} \\ \hline
+        \makecell{
+            예제 작성해보기 (최소, 최대)\\
+            메모리, overflow 분석하기 \\
+            올바른 문제에 제출하기
+        } &
+        \makecell{
+            \textbf{코드 + debug output 출력} \\
+            다중 테케 문제에서 초기화 확인 \\
+            알고리즘이 제한조건을 전부 다루는지 확인 \\
+            \textbf{지문 다시 읽기} \\ 
+            corner case 찾기 \\
+            초기화 안 된 지역변수 찾기 \\
+            \textbf{\texttt{N, M, i, j} 등 변수 확인} \\
+            \textbf{풀이 증명하기} \\
+            STL 함수 다시 생각해보기 \\
+            \textbf{팀노트에서 있던 변수값 다시 확인} \\
+            이 목록 다시 읽어보기 \\
+            알고리즘 팀원에게 설명하기 \\
+            팀원이랑 코드 보기 \\
+            잠깐 일어나서 생각 재정비하고 오기 \\
+            \textbf{입출력 형식 확인하기 (whitespace 포함)}
+        } \\ \hline
+        \textbf{Runtime error} & \textbf{Time / Memory limit exceeded} \\ \hline
+        \makecell{
+            코너 케이스 처리해보기 \\
+            초기화 안 된 변수 찾기 \\
+            out-of-range 확인하기 \\
+            팀노트에서 있던 변수값 다시 확인하기 \\ 
+            assertion 넣어보기 \\
+            무한 재귀 확인하기 \\
+            null pointer 확인하기 \\
+            메모리 사용량 확인하기
+        } &
+        \makecell{
+            \textbf{무한 루프 확인} \\
+            \textbf{알고리즘 시간 복잡도 확인} \\
+            data copy 어느 정도 하는지 확인 (reference) \\
+            입출력 규모 생각하기 (\texttt{scanf} 고려하기) \\
+            \texttt{vector, map} 최소화하기 \\
+            팀원에게 알고리즘 물어보기 \\
+            최대 메모리 사용량 계산하기 \\
+            다중 테케 문제에서 초기화하기 \\ 
+        } \\ \hline
+        
+    \end{tabular}
+\end{table}
+
+
+\iffalse
+
+\fi
+
+\end{document}
