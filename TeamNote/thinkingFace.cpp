@@ -91,9 +91,3 @@ while(1){
 	//...
 	if((clock() - start_time) / CLOCKS_PER_SEC >= 0.99) break; // 0.99s
 }
-
-#파이썬
-import sys
-sys.setrecursionlimit(10**7)
-input = sys.stdin.readline
-a,b,c = map(int, input().rstrip().split())
