@@ -1,3 +1,4 @@
+//O(VEf), Average = O(Ef)
 const int MAX, INF; //MAX = 최대 정점 개수, INF = 가중치의 최장거리
 struct MinCostMaxFlow{
     struct Edge{
