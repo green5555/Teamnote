@@ -20,5 +20,6 @@ int LCA(int u, int v){
 	for(int i=pMAX-1; i>=0; --i)
 		if(parent[u][i] != parent[v][i])
 			u = parent[u][i], v = parent[v][i];
-	return parent[u][0];
+	u = parent[u][0], v = parent[v][0];
+	return u;
 }
