@@ -81,9 +81,8 @@ cout << uniform_int_distribution<int>(0, 10)(rng); //return 0,...,10
 #ifndef ONLINE_JUDGE freopen("a.in","r",stdin); #endif
 
 //gcc 최적화
+#pragma GCC optimize("Ofast")
 #pragma GCC target ("avx2")
-#pragma GCC optimization ("O3")
-#pragma GCC optimization ("unroll-loops")
 
 //랜덤
 double start_time = clock();
