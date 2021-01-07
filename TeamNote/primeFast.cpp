@@ -1,10 +1,3 @@
-typedef long long ll;
-typedef unsigned long long ull;
-// calculate a*b % m, x86-64 only
-ll large_mod_mul(ll a, ll b, ll m) {
-	return ll((__int128)a*(__int128)b%m);
-}
-
 // |m| < 2^62, x86 available O(logb)
 ll large_mod_mul(ll a, ll b, ll m) {
     a %= m; b %= m; ll r = 0, v = a;
@@ -14,6 +7,11 @@ ll large_mod_mul(ll a, ll b, ll m) {
     v = (v << 1) % m;
 }
 
+typedef unsigned long long ull;
+// calculate a*b % m, x86-64 only
+ll large_mod_mul(ll a, ll b, ll m) {
+	return ll((__int128)a*(__int128)b%m);
+}
 // calculate n^k % m
 ll modpow(ll n, ll k, ll m) {
 	ll ret = 1;
