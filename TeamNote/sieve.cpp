@@ -50,3 +50,9 @@ void euler_phi() {
 			for (int j = i; j <= MAX; j += i)
 				sieve[j] -= sieve[j] / i;
 }
+
+// phi(n) : [1~n]에서 n과 서로소인 수의 개수
+// n의 소인수가 p_1, p_2, ... 면 phi(n) = n * (1 - 1/p_1) * (1 - 1/p_2) * ...
+// n과 m이 서로소면, phi(n*m) = phi(n) * phi(m)
+// n % m == 0 이면, phi(n) % phi(m) == 0
+// n의 모든 약수 d에 대해, sum(phi(d)) = n
