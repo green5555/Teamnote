@@ -29,18 +29,24 @@ void print_factor(int n){
     cout << n << '\n';
 }
 
+
 //1~N의 약수의 개수 구하기 O(NlogN)
-void num_of_divisors(int n, int ret[]) {
-	for (int i = 1; i <= n; ++i)
-		for (int j = i; j <= n; j += i)
-			ret[j] += 1;
+const int MAX = 1000000;
+int sieve[MAX+1];
+void num_of_divisors() {
+	for (int i = 1; i <= MAX; ++i)
+		for (int j = i; j <= MAX; j += i)
+			sieve[j] += 1;
 }
-//오일러 피 함수 O(n*loglogn)
-// 0 < x < n && gcd(n, x) = 1 인 x의 개수
-void euler_phi(int n, int ret[]) {
-	for (int i = 1; i <= n; ++i) ret[i] = i;
-	for (int i = 2; i <= n; ++i)
-		if (ret[i] == i)
-			for (int j = i; j <= n; j += i)
-				ret[j] -= ret[j] / i;
+
+
+// 오일러 피 함수 O(NloglogN) : 0 < x < n && gcd(n, x) = 1 인 x의 개수
+const int MAX = 1000000;
+int sieve[MAX+1];
+void euler_phi() {
+	for (int i = 1; i <= MAX; ++i) sieve[i] = i;
+	for (int i = 2; i <= MAX; ++i)
+		if (sieve[i] == i)
+			for (int j = i; j <= MAX; j += i)
+				sieve[j] -= sieve[j] / i;
 }
