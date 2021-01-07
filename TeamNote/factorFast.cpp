@@ -1,6 +1,5 @@
 ll pollard_rho(ll n) {
-	random_device rd;
-	mt19937 gen(rd());
+	mt19937_64 gen(chrono::steady_clock::now().time_since_epoch().count());
 	uniform_int_distribution <ll> dis(1, n - 1);
 	ll x = dis(gen);
 	ll y = x;
