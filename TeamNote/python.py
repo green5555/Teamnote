@@ -1,5 +1,5 @@
 input = __import__('sys').stdin.readline
-MIS = lambda: map(int, input().split())
+mis = lambda: map(int, input().split())
 
 import sys
 sys.setrecursionlimit(10**6)
