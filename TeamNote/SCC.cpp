@@ -31,6 +31,7 @@ struct StronglyConnectedComponent {
     }
 
     void make_SCC(int V=MAX) {
+        scc.clear();
         memset(discovered, -1, sizeof(discovered));
         memset(sccn, -1, sizeof(sccn));
         cnt1 = 0, cnt2 = 0;
