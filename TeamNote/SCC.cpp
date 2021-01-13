@@ -1,5 +1,6 @@
+const int MAX;
 struct StronglyConnectedComponent {
-    int discovered[MAX], sccNumber[MAX], cnt1, cnt2;
+    int discovered[MAX], sccn[MAX], cnt1, cnt2;
     vector<int> adj[MAX];
     stack<int> s;
     vector<vector<int>> scc;
@@ -11,7 +12,7 @@ struct StronglyConnectedComponent {
         for (int &there : adj[here]) {
             if (discovered[there] == -1)
                 ret = min(ret, DFS(there));
-            else if (sccNumber[there] == -1)
+            else if (sccn[there] == -1)
                 ret = min(ret, discovered[there]);
         }
         if (ret == discovered[here]) {
@@ -20,7 +21,7 @@ struct StronglyConnectedComponent {
             while (true) {
                 int tmp = s.top();
                 s.pop();
-                sccNumber[tmp] = cnt2;
+                sccn[tmp] = cnt2;
                 V.push_back(tmp);
                 if (tmp == here) break;
             }
@@ -29,9 +30,9 @@ struct StronglyConnectedComponent {
         return ret;
     }
 
-    void make_SCC(int V) {
+    void make_SCC(int V=MAX) {
         memset(discovered, -1, sizeof(discovered));
-        memset(sccNumber, -1, sizeof(sccNumber));
+        memset(sccn, -1, sizeof(sccn));
         cnt1 = 0, cnt2 = 0;
         for (int i = 0; i < V; ++i)
             if (discovered[i] == -1)
