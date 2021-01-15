@@ -37,7 +37,7 @@ struct BCC_decomposition {
         for(int i=1; i<=n; ++i)
             if(!par[i]) dfs(i, i);
         for(int i=1; i<=n; ++i)
-            if(!vst[i]) color(i, 1);
+            if(!vst[i]) color(i, 0);
         bcc.resize(cpiv);
         for (int i = 1; i <= n; ++i) {
             for (int &b : belong[i])
