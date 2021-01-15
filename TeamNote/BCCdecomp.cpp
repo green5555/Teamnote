@@ -4,7 +4,7 @@ struct BCC_decomposition {
     //TODO : adj 채우기, v = [1~n]
     //belong[i] : i번 정점이 속해있는 BCC 번호
     //bcc[i] : i번 BCC에 속해있는 정점들의 번호
-    int piv, cpiv, dfsn[MAX], low[MAX], par[MAX], vst[MAX];
+    int piv, cn, dfsn[MAX], low[MAX], par[MAX], vst[MAX];
     vector<int> adj[MAX], belong[MAX];
 
     void dfs(int x, int p) {
@@ -25,8 +25,8 @@ struct BCC_decomposition {
         for (int &y : adj[x]) {
             if (vst[y]) continue;
             if (dfsn[x] <= low[y]) { //단절점
-                belong[x].push_back(++cpiv);
-                color(y, cpiv);
+                belong[x].push_back(++cn);
+                color(y, cn);
             } else color(y, c);
         }
     }
@@ -38,10 +38,10 @@ struct BCC_decomposition {
             if(!par[i]) dfs(i, i);
         for(int i=1; i<=n; ++i)
             if(!vst[i]) color(i, 0);
-        bcc.resize(cpiv);
+        bcc.resize(cn+1);
         for (int i = 1; i <= n; ++i) {
             for (int &b : belong[i])
-                bcc[b - 1].emplace_back(i);
+                bcc[b].emplace_back(i);
         }
     }
 }b;
