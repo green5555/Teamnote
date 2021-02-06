@@ -1,3 +1,4 @@
+//O(EV^2), 0-1 cap에서 min{O(EV^0.66, O(E^0.66)}
 const int MAX, INF; //MAX = 정점의 개수, INF = 최대 용량
 struct Dinic{
 	int level[MAX], work[MAX];
