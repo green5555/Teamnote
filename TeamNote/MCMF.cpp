@@ -1,65 +1,60 @@
 //O(VEf), Average = O(Ef)
-const int MAX, INF; //MAX = 최대 정점 개수, INF = 가중치의 최장거리
-struct MinCostMaxFlow{
-    struct Edge{
-        int next, cap, cost, flow=0;
-        Edge* rev;
-        Edge(){};
-        Edge(int _next, int _cap, int _cost) : next(_next), cap(_cap), cost(_cost) {};
-        int remain(){
-            return cap - flow;
-        }
-        void push(int x){
-            flow += x;
-            rev -> flow -= x;
-        }
-    };
-    vector<Edge*> adj[MAX];
-    inline void makeEdge(int u, int v, int cap, int cost){
-        Edge *uv = new Edge(v, cap, cost), *vu = new Edge(u, 0, -cost);
-        uv->rev = vu, vu->rev = uv;
-        adj[u].push_back(uv);
-        adj[v].push_back(vu);
-    }
-    pair<int,int> MCMF(int S, int E){
-        int minCost = 0, maxFlow = 0;
-        while(true){
-            int parent[MAX], dist[MAX];
-            Edge *path[MAX];
-            queue<int> Q;
-            bool inQ[MAX] = {};
-            memset(parent, -1, sizeof(parent));
-            fill(dist, dist+MAX, INF);
-            dist[S] = 0;
-            Q.push(S);
-            inQ[S] = true;
-            while(!Q.empty()){
-                int here = Q.front(); Q.pop();
-                inQ[here] = false;
-                for(auto e : adj[here]){
-                    int there = e->next;
-                    if(e->remain()>0 && dist[there] > dist[here]+e->cost){
-                        dist[there] = dist[here] + e->cost;
-                        parent[there] = here;
-                        path[there] = e;
-                        if(!inQ[there]){
-                            Q.push(there);
-                            inQ[there] = true;
-                        }
-                    }
-                }
-            }
-            if(parent[E] == -1) break;
-            int flow = INF;
-            for(int i=E; i!=S; i=parent[i])
-                flow = min(flow, path[i]->remain());
-            for(int i=E; i!=S; i=parent[i]){
-                minCost += flow * path[i]->cost;
-                path[i]->push(flow);
-            }
-            maxFlow += flow;
-        }
-
-        return {minCost, maxFlow};
-    }
-}F;
+const int MAX = 0;
+struct MCMF{
+	struct edg{ int pos, cap, rev, cost; };
+	vector<edg> adj[MAX];
+	void clear(){
+		for(int i=0; i<MAX; i++) adj[i].clear();
+	}
+	void make_edge(int from, int to, int weight, int cap){
+		adj[from].push_back({to, weight, (int)adj[to].size(), cap});
+		adj[to].push_back({from, 0, (int)adj[from].size()-1, -cap});
+	}
+	int dist[MAX], pa[MAX], pe[MAX];
+	bool inque[MAX];
+	int spfa(int src, int sink){
+		memset(dist, 0x3f, sizeof(dist));
+		memset(inque, 0, sizeof(inque));
+		queue<int> que;
+		dist[src] = 0;
+		inque[src] = 1;
+		que.push(src);
+		bool ok = 0;
+		while(!que.empty()){
+			int x = que.front();
+			que.pop();
+			if(x == sink) ok = 1;
+			inque[x] = 0;
+			for(int i=0; i<adj[x].size(); i++){
+				edg e = adj[x][i];
+				if(e.cap > 0 && dist[e.pos] > dist[x] + e.cost){
+					dist[e.pos] = dist[x] + e.cost;
+					pa[e.pos] = x;
+					pe[e.pos] = i;
+					if(!inque[e.pos]){
+						inque[e.pos] = 1;
+						que.push(e.pos);
+					}
+				}
+			}
+		}
+		return ok;
+	}
+	pii match(int src, int sink){
+		int mincost = 0, maxflow=0;
+		while(spfa(src, sink)){
+			int cap = 1e9;
+			for(int pos = sink; pos != src; pos = pa[pos]){
+				cap = min(cap, adj[pa[pos]][pe[pos]].cap);
+			}
+			mincost += dist[sink] * cap;
+			maxflow += cap;
+			for(int pos = sink; pos != src; pos = pa[pos]){
+				int rev = adj[pa[pos]][pe[pos]].rev;
+				adj[pa[pos]][pe[pos]].cap -= cap;
+				adj[pos][rev].cap += cap;
+			}
+		}
+		return {mincost, maxflow};
+	}
+}f;
