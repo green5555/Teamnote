@@ -1,6 +1,6 @@
+const ll LINF = 0, RINF = ll(1e9)+10;
 struct dynamicseg{
     //TODO
-    const ll LINF = 0, RINF = ll(1e9)+10;
     const ll ID = 0;
     ll merge(ll x, ll y){
         return x+y;
