@@ -11,3 +11,9 @@ void solve_dnc(int i, int l, int r, int optl, int optr){
     solve_dnc(i, l, mid - 1, optl, best.second);
     solve_dnc(i, mid + 1, r, best.second, optr);
 }
+
+
+int dp[MAXM][MAXN]; 
+fill(dp[0] + 1, dp[0] + n+1, INF); 
+for(int jump=1; jump<=m; ++m)
+    solve_dnc(jump, 0, n, 0, n);
