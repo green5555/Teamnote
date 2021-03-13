@@ -2,15 +2,16 @@ const int MAX;
 struct PersistentSegmentTree{
     struct Node{
         int value = 0; //반드시 항등원
-        int lidx = -1, ridx = -1;
+        int lidx = 0, ridx = 0;
     };
     vector<int> root;
     vector<Node> seg;
 
     void init(){
-        root.clear(); seg.clear();
-        root.emplace_back(0);
+        seg.clear(); root.clear();
+        seg.emplace_back(); //dummy
         seg.emplace_back(); //root
+        root.emplace_back(1);
     }
 
     int make_tree(int prev, int idx, int value, int nl, int nr) {
@@ -21,7 +22,7 @@ struct PersistentSegmentTree{
             return here;
         }
         int mid = (nl + nr) / 2;
-        if (seg[prev].lidx == -1) {
+        if (!seg[prev].lidx) {
             seg[prev].lidx = seg.size(); seg.emplace_back();
             seg[prev].ridx = seg.size(); seg.emplace_back();
         }
@@ -35,7 +36,7 @@ struct PersistentSegmentTree{
     }
 
     int query(int idx, int l, int r, int nl, int nr){
-        if(idx == -1 || nr < l || r < nl) return 0;
+        if(!idx || nr < l || r < nl) return 0;
         if(l <= nl && nr <= r) return seg[idx].value;
         int mid = (nl + nr)/2;
         return query(seg[idx].lidx, l, r, nl, mid) + query(seg[idx].ridx, l, r, mid+1, nr);
