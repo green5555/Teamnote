@@ -5,3 +5,9 @@ void make_lr(int a, int b, pii p){
     f.make_edge(a, E2, l);
     f.make_edge(a, b, r-l);
 }
+
+make_flow(E1, S1, 2e9);
+make_lr(u, v, {l,r});
+
+if(maxflow(S2, E2) < lsum) {cout << "impossible";}
+cout << maxflow(S1, E1);
