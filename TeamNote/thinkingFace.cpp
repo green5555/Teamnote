@@ -43,6 +43,10 @@ map<seg, int, decltype(cmp)> mp(cmp);
 priority_queue<seg, vector<seg>, decltype(cmp)> pq(cmp); // max heap
 
 // hash func overload
+struct state{
+    bool operator==(const state &s) const{
+    }
+}
 struct hasher {
     size_t operator()(const pii &x)const{
         return hash<ll>()(((ll)x.first)^(((ll)x.second)<<32));
