@@ -11,11 +11,11 @@ void MOquery(){
 	sort(query.begin(), query.end(), [](auto &a, auto &b){
 		//구간 [L,R]들을 정렬하자. (sqrt decomposition)
 		//1. L/sqrt(N) 기준으로 오름차순 정렬
-		//2. 같다면 R 기준으로 오름차순 정렬
+		//2. 같다면 Ln이 홀수면 R의 내림차순, 짝수면 R의 오름차순 정렬
 		int Ln = a.first.first/sqrtN, Rn = b.first.first/sqrtN;
-		if(Ln != Rn)
-			return Ln < Rn;
-		return a.first.second < b.first.second;
+		if(Ln != Rn) return Ln < Rn;
+		if(Ln&1) return a.first.second > b.first.second;
+        	else return a.first.second < b.first.second;
 	});
 
 	//[0,0]부터 시작해 스위핑 해주자.
@@ -46,20 +46,4 @@ void MOquery(){
 		R = nR;
 		ans[P.second] = ret;
 	}
-}
-
-//해밀턴 경로를 이용한 정렬 함수 (2^pow >= q)
-const int rotateDelta[4] = {3, 0, 0, 1};
-inline ll gilbertOrder(int x, int y, int pow=21, int rotate=0) {
-	if (pow == 0) return 0;
-	int hpow = 1 << (pow-1);
-	int seg = (x<hpow)?((y<hpow)?0:3):((y<hpow)?1:2);
-	seg = (seg + rotate) & 3;
-	int nx = x & (x ^ hpow), ny = y & (y ^ hpow);
-	int nrot = (rotate + rotateDelta[seg]) & 3;
-	ll subSquareSize = 1LL << (2*pow - 2);
-	ll ans = seg * subSquareSize;
-	ll add = gilbertOrder(nx, ny, pow-1, nrot);
-	ans += (seg == 1 || seg == 2) ? add : (subSquareSize - add - 1);
-	return ans;
 }
