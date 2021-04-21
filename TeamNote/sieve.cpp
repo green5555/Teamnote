@@ -10,23 +10,23 @@ void find_prime(){
 	}
 }
 
+
 //소인수분해
-const int MAX = 1000000;
+const int MAX = 10000000;
 int sieve[MAX+1];
 void find_prime(){
-	memset(sieve, -1, sizeof(sieve));
+	for(int i=1; i<=MAX; ++i) sieve[i] = i;
 	for(ll i=2; i*i<=MAX; ++i)
-		if(sieve[i] == -1)
+		if(sieve[i] == i)
 			for(ll j=i*i; j<=MAX; j+=i)
-				if(sieve[j] == -1)
+				if(sieve[j] == j)
 					sieve[j] = i;
 }
 void print_factor(int n){
-	while(sieve[n] != -1){
+	while(n > 1){
 		cout << sieve[n] << '\n';
 		n /= sieve[n];
 	}
-    cout << n << '\n';
 }
 
 
