@@ -21,6 +21,7 @@ struct dynamicseg{
         seg.clear();
         make_node(LINF, RINF);
     }
+    dynamicseg(){init();}
 
     ll update(ll i, ll x, int no, ll xl, ll xr){
         if(i < xl || xr < i) return seg[no].x;
