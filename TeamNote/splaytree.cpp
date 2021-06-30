@@ -125,7 +125,7 @@ struct splay_tree{
     ll query_range(int l, int r){
         return range(l,r)->sum;
     }
-
+    /*
     void _print(node *x, int depth){
         if(x == 0) return;
         _print(x->l, depth+1);
@@ -138,4 +138,5 @@ struct splay_tree{
         return;
         #endif
         cout << "*** print ***" << endl; _print(root,1); cout << endl;}
+    */
 }s;
