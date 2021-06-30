@@ -9,7 +9,7 @@ struct splay_tree{
         ~node(){if(l) delete l; if(r) delete r;}
 
         ll value=0, sum=0, lazy=0;
-        //초기값 배정 : key = [1~n]에 대해 호출됨
+        //초기값 배정 : key = [0~n+1]에 대해 호출됨
         void init(){
             value = sum = a[key];
         }
@@ -50,13 +50,13 @@ struct splay_tree{
     // 1-n을 인덱스로 value[1-n] 초기화, 0과 n+1에 더미노드.
     void clear(int n){
         if(root) delete root;
-        node *x = root = new node(0);
+        node *x = root = new node(0); x->init();
         for(int i=1; i<=n; ++i){
             ptr[i] = x->r = new node(i, x);
             x = x->r;
             x->init();
         }
-        x->r = new node(n+1, x);
+        x->r = new node(n+1, x); x->r->init();
         for(int i=n; i>=1; --i) ptr[i]->pull();
         splay(ptr[(n+1)/2]);
     }
