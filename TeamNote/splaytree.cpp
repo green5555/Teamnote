@@ -125,18 +125,25 @@ struct splay_tree{
     ll query_range(int l, int r){
         return range(l,r)->sum;
     }
-    /*
-    void _print(node *x, int depth){
-        if(x == 0) return;
-        _print(x->l, depth+1);
-        cout << string(depth, '-');
-        cout << x->key << " : " << x->value << ' '  << x->sum << ' ' << x->lazy << endl;
-        _print(x->r, depth+1); 
-    }
-    void print(){
-        #ifdef ONLINE_JUDGE
-        return;
-        #endif
-        cout << "*** print ***" << endl; _print(root,1); cout << endl;}
-    */
 }s;
+
+
+void delete_root() {
+    node *p = root;
+    if (p->l) {
+        if (p->r) {
+            root = p->l; root->p = 0;
+            node *x = root;
+            while (x->r) x = x->r;
+            x->r = p->r; p->r->p = x;
+            splay(x); return;
+        }
+        root = p->l; root->p = 0;
+        return;
+    }
+    if (p->r) {
+        root = p->r; root->p = 0;
+        return;
+    }
+    root = 0;
+}
