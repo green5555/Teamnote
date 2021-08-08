@@ -15,15 +15,17 @@ struct BIT{
 			idx += idx & -idx;
 		}
 	}
-	int kth(int k){
-		int ret = 0;
-		for(int i=30; i>=0; --i){
-			int pivot = ret + (1<<i);
-			if(pivot <= MAX && seg[pivot] < k){
-				k -= seg[pivot];
-				ret = pivot;
-			}
-		}
-		return ret+1;
-    }
 };
+
+
+int kth(int k){
+    int ret = 0;
+    for(int i=30; i>=0; --i){
+        int pivot = ret + (1<<i);
+        if(pivot <= MAX && seg[pivot] < k){
+            k -= seg[pivot];
+            ret = pivot;
+        }
+    }
+    return ret+1;
+}
