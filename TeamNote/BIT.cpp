@@ -1,21 +1,20 @@
 const int MAX;
 struct BIT{
-	int seg[MAX+1] = {};
-	int query(int idx){
-		int ret = 0;
-		while(idx > 0){
-			ret += seg[idx];
-			idx -= idx & -idx;
-		}
-		return ret;
-	}
-	void update(int idx, int a){
-		while(idx <= MAX){
-			seg[idx] += a;
-			idx += idx & -idx;
-		}
-	}
-};
+    ll seg[MAX+1] = {};
+    void clear(){memset(seg, 0, sizeof(seg));}
+    ll psum(int idx){
+        ll ret = 0;
+        while(idx > 0){ ret += seg[idx], idx -= idx & -idx; }
+        return ret;
+    }
+    ll query(int l, int r){
+        ll ret = psum(r); if(l>0) ret -= psum(l-1);
+        return ret;
+    }
+    void update(int idx, ll a=1) {
+        while (idx <= MAX){ seg[idx] += a; idx += idx & -idx; }
+    }
+}
 
 
 int kth(int k){
