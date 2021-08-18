@@ -1,6 +1,6 @@
 const int MAX;
 struct BIT{
-    ll seg[MAX+1] = {};
+    ll seg[MAX+1];
     void clear(){memset(seg, 0, sizeof(seg));}
     ll psum(int idx){
         ll ret = 0;
