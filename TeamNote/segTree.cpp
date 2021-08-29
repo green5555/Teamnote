@@ -13,5 +13,5 @@ struct SegmentTree{
         int mid = (nl + nr)/2;
         return seg[no] = update(i,v,no*2,nl,mid) + update(i,v,no*2+1,mid+1,nr);
     }
-}ST;
+}s;
 
