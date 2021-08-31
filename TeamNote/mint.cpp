@@ -27,5 +27,5 @@ struct mint {
 	friend mint operator-(mint a, const mint& b) { return a -= b; }
 	friend mint operator*(mint a, const mint& b) { return a *= b; }
 	friend mint operator/(mint a, const mint& b) { return a /= b; }
-	operator int64_t() const {return val; }
+	// operator int64_t() const {return val; }
 };
