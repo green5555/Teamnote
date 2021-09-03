@@ -14,6 +14,7 @@ void MOquery(){
 		//2. 같다면 Ln이 홀수면 R의 내림차순, 짝수면 R의 오름차순 정렬
 		int Ln = a.first.first/sqrtN, Rn = b.first.first/sqrtN;
 		if(Ln != Rn) return Ln < Rn;
+		//부등호를 뒤집으면 더 빨리질수도
 		if(Ln&1) return a.first.second > b.first.second;
         	else return a.first.second < b.first.second;
 	});
