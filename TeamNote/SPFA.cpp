@@ -1,10 +1,8 @@
-const int MAX; const ll INF;
-vector<pll> adj[555]; //{정점, 가중치}
-bool SPFA(int start, vector<ll> &dist){
-    dist = vector<ll>(MAX, INF);
+bool SPFA(int n, int start){
+    vector<ll> dist(n, 1e12);
     queue<int> Q;
-    bool inQ[MAX] = {};
-    int visit[MAX] = {};
+    vector<bool> inQ(n, 0);
+    vector<int> visit(n, 0);
     dist[start] = 0;
     Q.push(start);
     inQ[start] = true;
