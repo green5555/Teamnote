@@ -7,6 +7,7 @@ ll large_mod_mul(ll a, ll b, ll m) {
         b >>= 1;
         v = (v << 1) % m;
     }
+    return r;
 }
 
 // calculate a*b % m, x86-64 only
