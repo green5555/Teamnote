@@ -16,4 +16,4 @@ struct UnionFind{
         parent[b] += parent[a];
         parent[a] = b;
     }
-}uf;
+} UF;

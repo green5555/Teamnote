@@ -7,19 +7,21 @@ bool DFS(int here){
     visit[here] = true;
     for(int &there : adj[here])
         if(B[there] == -1 || DFS(B[there])){
+            // 매칭이 되어있지 않은 정점을 만나거나 이미 매칭된 정점이 다른 정점과 매칭이 가능할 때
             A[here] = there, B[there] = here;
             return true;
         }
     return false;
 }
-int biMatch(){
+int bimatch(int cap = 1, int n = MAXA-1) { // 1-index
     memset(A, -1, sizeof(A));
     memset(B, -1, sizeof(B));
-    int match = 0;
-    for(int i=0; i<MAXA; ++i)
-        if(A[i] == -1){
+    int ret = 0;
+    for (int i = 1; i <= n; i++) {
+        for (int j = 0; j < cap; ++j) { // src당 몇 번 매칭?
             memset(visit, 0, sizeof(visit));
-            match += DFS(i);
+            ret += DFS(i);
         }
-    return match;
+    }
+    return ret;
 }

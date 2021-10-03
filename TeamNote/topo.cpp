@@ -1,7 +1,7 @@
 const int MAX;
-int n, indegree[MAX], result[MAX];
+int indegree[MAX], result[MAX];
 vector<int> adj[MAX];
-bool topological_sort(){
+bool topological_sort(int n){
 	queue<int> Q;
 	for(int i=0; i<n; ++i)
 		if(!indegree[i]) Q.push(i);
