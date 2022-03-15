@@ -1,19 +1,19 @@
 const int MAX; //MAX = n의 최대값
-mint inv[MAX+1], fac[MAX+1], facInv[MAX+1];
+mint iinv[MAX+1], fac[MAX+1], faciinv[MAX+1];
 void combInit(){
     fac[0] = 1;
     for(int i=1; i<=MAX; ++i)
         fac[i] = (fac[i-1]*i);
-    inv[1] = 1;
+    iinv[1] = 1;
     for(int i=2; i<=MAX; ++i)
-        inv[i] = (mod - mod/i) * inv[mod%i];
-    facInv[1] = 1;
+        iinv[i] = (mod - mod/i) * iinv[mod%i];
+    faciinv[1] = 1;
     for(int i=2; i<=MAX; ++i)
-        facInv[i] = (facInv[i-1]*inv[i]);
+        faciinv[i] = (faciinv[i-1]*iinv[i]);
 }
 inline mint comb(int n, int r){
 	if(r == 0 || n == r) return 1;
-	return (((fac[n]*facInv[r]))*facInv[n-r]);
+	return (((fac[n]*faciinv[r]))*faciinv[n-r]);
 }
 
 // Method1, with ll
