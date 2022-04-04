@@ -1,6 +1,6 @@
 const int MAX = 100;
 struct{
-    vector<pii> graph[MAX]; // { next vertex id, edge id }
+    vector<pii> adj[MAX]; // { next vertex id, edge id }
     int up[MAX], visit[MAX], vtime;
     vector<int> stk;
     int is_cut[MAX]; // v is cut vertex if is_cut[v] > 0
@@ -10,7 +10,7 @@ struct{
     void dfs(int no, int pe) { // node, parent edge
         up[no] = visit[no] = ++vtime;
         int child = 0;
-        for (const auto& e : graph[no]) {
+        for (const auto& e : adj[no]) {
             int next = e.xx, eid = e.yy;
             if (eid == pe) continue;
             if (visit[next] == 0) {
