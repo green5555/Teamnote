@@ -7,9 +7,17 @@ typedef pair<ll, ll> pll;
 #define yy second
 #define all(v) (v).begin(), (v).end()
 
-int main() {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+void solve_tc(){
 
-    
+}
+
+int main() {
+    ios_base::sync_with_stdio(0); cin.tie(0);
+
+    int t; cin >> t;
+    for(int i=1; i<=t; ++i){
+        // cout << "Case #" << i << ": ";
+        solve_tc();
+        cout << '\n';
+    }
 }
