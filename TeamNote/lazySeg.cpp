@@ -11,7 +11,7 @@ struct lazySeg{
 			lazy[no] = 0;
 		}
 	}
-	ll update(int l, int r, ll v, int no, int nl, int nr){
+	ll update(int l, int r, ll v, int no=1, int nl=0, int nr=MAX-1){
 		prop(no, nl, nr);
 		if(r<nl || nr<l) return seg[no];
 		if(l <= nl && nr <= r){
@@ -22,11 +22,11 @@ struct lazySeg{
 		int mid = (nl+nr)/2;
 		return seg[no] = update(l,r,v,no*2,nl,mid) + update(l,r,v,no*2+1,mid+1,nr);
 	}
-	ll query(int l, int r, int no, int nl, int nr){
+	ll query(int l, int r, int no=1, int nl=0, int nr=MAX-1){
 		prop(no, nl, nr);
 		if(r<nl || nr<l) return 0;
 		if(l <= nl && nr <= r) return seg[no];
 		int mid = (nl + nr)/2;
 		return query(l,r,no*2,nl,mid) + query(l,r,no*2+1,mid+1,nr);
 	}
-}LS;
+}s;
