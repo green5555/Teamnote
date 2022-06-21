@@ -1,4 +1,4 @@
-const ll LINF = 0, RINF = ll(1e9)+10;
+const ll LINF = -(ll(1e9)+10), RINF = ll(1e9)+10;
 struct dynamicseg{
     //TODO
     const ll ID = 0;
@@ -31,8 +31,8 @@ struct dynamicseg{
             return seg[no].x;
         }
         ll m = (xl+xr)/2;
-        if(seg[no].lc == -1) seg[no].lc = make_node(xl, m);
-        if(seg[no].rc == -1) seg[no].rc = make_node(m+1, xr);
+        if(seg[no].lc == -1) {int t = make_node(xl, m);   seg[no].lc = t;}
+        if(seg[no].rc == -1) {int t = make_node(m+1, xr); seg[no].rc = t;}
         return seg[no].x = merge(update(i, x, seg[no].lc, xl, m), update(i, x, seg[no].rc, m+1, xr));
     }
     void update(ll i, ll x){

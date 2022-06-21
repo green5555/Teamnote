@@ -1,4 +1,4 @@
-const ll LINF = 0, RINF = ll(1e9)+10;
+const ll LINF = -(ll(1e9)+10), RINF = ll(1e9)+10;
 struct dynamiclazyseg{
 	struct node{
 		int lc, rc; //자식의 인덱스
@@ -40,8 +40,8 @@ struct dynamiclazyseg{
 		update_node(no, xl, xr);
 		if(xl != xr){
 			int m = (xl+xr)/2;
-			if(seg[no].lc == -1) seg[no].lc = make_node(xl, m);
-			if(seg[no].rc == -1) seg[no].rc = make_node(m+1, xr);
+			if(seg[no].lc == -1) {int t = make_node(xl, m);   seg[no].lc = t;}
+			if(seg[no].rc == -1) {int t = make_node(m+1, xr); seg[no].rc = t;}
 			tagging(seg[no].lc, lazy[no], xl, m);
 			tagging(seg[no].rc, lazy[no], m+1, xr);
 		}
@@ -57,8 +57,8 @@ struct dynamiclazyseg{
 			return seg[no].x;
 		}
 		ll m = (xl+xr)/2;
-		if(seg[no].lc == -1) seg[no].lc = make_node(xl, m);
-		if(seg[no].rc == -1) seg[no].rc = make_node(m+1, xr);
+		if(seg[no].lc == -1) {int t = make_node(xl, m);   seg[no].lc = t;}
+		if(seg[no].rc == -1) {int t = make_node(m+1, xr); seg[no].rc = t;}
 		return seg[no].x = merge(update(l, r, x, seg[no].lc, xl, m), update(l, r, x, seg[no].rc, m+1, xr), xl, xr);
 	}
 	void update(ll l, ll r, ll x){
