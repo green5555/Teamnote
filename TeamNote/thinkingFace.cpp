@@ -90,6 +90,7 @@ cout << uniform_int_distribution<int>(0, 10)(rng); //return 0,...,10
 
 //랜덤
 double start_time = clock();
+cout << endl << ((clock() - start_time)) / CLOCKS_PER_SEC << "sec" << endl;
 while(1){
 	//...
 	if((clock() - start_time) / CLOCKS_PER_SEC >= 0.99) break; // 0.99s
