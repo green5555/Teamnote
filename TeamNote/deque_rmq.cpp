@@ -1,50 +1,20 @@
-struct DequeMin{
-    deque<pii> q;
-    int i=0, j=0;
+template<typename T> struct MaxDeque{
+    deque<pair<T, int>> q;
+    int L=0, R=0;
 
-    void push(int x){
-        while(!q.empty() && q.back().xx >= x) q.pop_back();
-        q.push_back({x, j});
-        ++j;
+	bool better(const T &a, const T &b) {
+		return a >= b;
+	}
+
+    void push(const T &x){
+        while(!q.empty() && better(x, q.back().xx)) q.pop_back();
+        q.push_back({x, R});
+        ++R;
     }
     void pop(){
-        if(q.front().yy == i) q.pop_front();
-        ++i;
+        if(q.front().yy == L) q.pop_front();
+        ++L;
     }
-    int get(){
-        return q.front().xx;
-    }
-}minq;
-
-struct DequeMax{
-    deque<pii> q;
-    int i=0, j=0;
-
-    void push(int x){
-        while(!q.empty() && q.back().xx <= x) q.pop_back();
-        q.push_back({x, j});
-        ++j;
-    }
-    void pop(){
-        if(q.front().yy == i) q.pop_front();
-        ++i;
-    }
-    int get(){
-        return q.front().xx;
-    }
-}maxq;
-
-//최근 m개의 최소값
-for(int i=0; i<n; ++i){
-	int a; cin >> a;
-	while(!Q.empty()){
-		if(Q.back().xx >= a) Q.pop_back();
-		else break;
-	}
-	while(!Q.empty()){
-		if(Q.front().yy < i-m+1) Q.pop_front();
-		else break;
-	}
-	Q.emplace_back(a, i);
-	cout << Q.front().yy << ' ';
-}
+    T get(){ return q.front().xx; }
+    int size(){ return R-L+1; }
+};
