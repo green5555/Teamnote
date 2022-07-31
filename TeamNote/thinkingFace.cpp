@@ -82,7 +82,9 @@ mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 cout << uniform_int_distribution<int>(0, 10)(rng); //return 0,...,10
 
 //파일 입출력
-#ifndef ONLINE_JUDGE freopen("a.in","r",stdin); #endif
+#ifndef ONLINE_JUDGE 
+    freopen("a.in","r",stdin); 
+#endif
 
 //gcc 최적화
 #pragma GCC optimize("Ofast")
