@@ -29,7 +29,12 @@ struct FFT{
         if(inv) for(int i=0; i<n; i++) a[i] /= n;
     }
 
-    void multiply(vector<ll> &v, vector<ll> &w, vector<ll> &ret){
+    /*
+    [1] 2^k가 될 때 까지 v와 w를 채운다.
+    [2] w를 reverse 시킨다
+    [3] ret[i] = w의 back이 i에 위치하도록 shift 했을 때의 sum(v[i]*w[i])
+    */
+    void multiply(const vector<ll> &v, const vector<ll> &w, vector<ll> &ret){
         vector<base> fv(v.begin(), v.end()), fw(w.begin(), w.end());
         int n = 2; while(n < v.size() + w.size()) n <<= 1;
         fv.resize(n); fw.resize(n);
