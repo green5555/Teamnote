@@ -1,6 +1,6 @@
 // idx : [0 ~ MAX)
 
-const int MAX = 1000000+1;
+const int MAX = 0;
 struct BIT{
     ll seg[MAX+2];
     void clear(){memset(seg, 0, sizeof(seg));}
@@ -9,8 +9,8 @@ struct BIT{
         while(idx > 0){ ret += seg[idx], idx -= idx & -idx; }
         return ret;
     }
-    ll query(int l, int r){ ++l, ++r;
-        ll ret = psum(r); if(l>1) ret -= psum(l-1);
+    ll query(int l, int r){
+        ll ret = psum(r); if(l>0) ret -= psum(l-1);
         return ret;
     }
     void update(int idx, ll a=1) { ++idx;
