@@ -24,6 +24,7 @@ struct dynamicseg{
     dynamicseg(){init();}
 
     ll update(ll i, ll x, int no, ll xl, ll xr){
+        if(no == -1) return ID;
         if(i < xl || xr < i) return seg[no].x;
         if(xl == xr) {
             //TODO : update seg[no].x <- x
@@ -31,8 +32,8 @@ struct dynamicseg{
             return seg[no].x;
         }
         ll m = (xl+xr)/2;
-        if(seg[no].lc == -1) {int t = make_node(xl, m);   seg[no].lc = t;}
-        if(seg[no].rc == -1) {int t = make_node(m+1, xr); seg[no].rc = t;}
+        if(i <= m && seg[no].lc == -1) {int t = make_node(xl, m); seg[no].lc = t;}
+        if(i > m && seg[no].rc == -1) {int t = make_node(m+1, xr); seg[no].rc = t;}
         return seg[no].x = merge(update(i, x, seg[no].lc, xl, m), update(i, x, seg[no].rc, m+1, xr));
     }
     void update(ll i, ll x){
