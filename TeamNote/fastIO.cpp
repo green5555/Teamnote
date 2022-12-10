@@ -1,6 +1,6 @@
-const int BSIZE = 524288; char buffer[BSIZE]; int p = BSIZE;
+const int BSIZE = 524288; char buffer[BSIZE]; int _p = BSIZE;
 inline char readc() {
-	if(p == BSIZE) { fread(buffer, 1, BSIZE, stdin); p = 0; } return buffer[p++];
+	if(_p == BSIZE) { fread(buffer, 1, BSIZE, stdin); _p = 0; } return buffer[_p++];
 }
 int readi() {
 	char c = readc(); while ((c < '0' || c > '9') && c != '-') c = readc();
