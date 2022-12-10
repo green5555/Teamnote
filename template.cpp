@@ -1,10 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long ll;
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
-#define xx first
-#define yy second
+typedef array<int, 2> pii;
+typedef array<ll, 2> pll;
+#define xx operator[](0)
+#define yy operator[](1)
 #define all(v) (v).begin(), (v).end()
 
 int main() {
