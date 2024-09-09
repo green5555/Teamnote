@@ -22,7 +22,7 @@ void factorize(ll n, vector<ll>& fl) {
 		fl.push_back(2);
 		factorize(n / 2, fl);
 	}
-	else if (is_prime(n)) {
+	else if (isPrime(n)) {
 		fl.push_back(n);
 	}
 	else {

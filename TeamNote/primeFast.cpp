@@ -1,16 +1,3 @@
-// |m| < 2^62, x86 available O(logb)
-typedef unsigned long long ull;
-ll large_mod_mul(ll a, ll b, ll m) {
-    a %= m; b %= m; ll r = 0, v = a;
-    while (b) {
-        if (b&1) r = (r + v) % m;
-        b >>= 1;
-        v = (v << 1) % m;
-    }
-    return r;
-}
-
-// calculate a*b % m, x86-64 only
 typedef unsigned long long ull;
 ll large_mod_mul(ll a, ll b, ll m) {
 	return ll((__int128)a*(__int128)b%m);
@@ -40,7 +27,7 @@ bool test_witness(ull a, ull n, ull s) {
 	return false;
 }
 // test whether n is prime based on miller-rabin test O(logn*logn)
-bool is_prime(ull n) {
+bool isPrime(ull n) {
 	if (n == 2) return true;
 	if (n < 2 || n % 2 == 0) return false;
 	ull d = n >> 1, s = 1;
