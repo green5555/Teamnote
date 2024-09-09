@@ -1,25 +1,46 @@
-const int MAXA, MAXB;
-int A[MAXA], B[MAXB];
-bool visit[MAXA];
-vector<int> adj[MAXA];
-bool DFS(int here){
-    if(visit[here]) return false;
-    visit[here] = true;
-    for(int &there : adj[here])
-        if(B[there] == -1 || DFS(B[there])){
-            A[here] = there, B[there] = here;
-            return true;
+const int MAX = 100;
+struct BiMatching {
+    vector<int> adj[MAX+5];
+    int iter, A[MAX+5], B[MAX+5], was[MAX+5];
+
+    bool dfs(int u) {
+        was[u] = iter;
+        for (int v : adj[u]) {
+            if (B[v] == -1) {
+                A[u] = v;
+                B[v] = u;
+                return true;
+            }
         }
-    return false;
-}
-int biMatch(){
-    memset(A, -1, sizeof(A));
-    memset(B, -1, sizeof(B));
-    int match = 0;
-    for(int i=0; i<MAXA; ++i)
-        if(A[i] == -1){
-            memset(visit, 0, sizeof(visit));
-            match += DFS(i);
+        for (int v : adj[u]) {
+            if (was[B[v]] != iter && dfs(B[v])) {
+                A[u] = v;
+                B[v] = u;
+                return true;
+            }
         }
-    return match;
-}
+        return false;
+    }
+
+    int biMatch(int n=MAX) {
+		fill(A, A+n, -1);
+		fill(B, B+n, -1);
+		fill(was, was+n, 0);
+        iter = 0;
+        int res = 0;
+        while (true) {
+            iter++;
+            int add = 0;
+            for (int i = 0; i < n; i++) {
+                if (A[i] == -1 && dfs(i)) {
+                    add++;
+                }
+            }
+            if (add == 0) {
+                break;
+            }
+            res += add;
+        }
+        return res;
+    }
+}M;
