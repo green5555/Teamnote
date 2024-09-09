@@ -1,4 +1,5 @@
 ll C(ll i, ll j){
+    // i-1에서 j로 점프하는 비용
 }
 void solve_dnc(int i, int l, int r, int optl, int optr){
     if (l > r) return;
