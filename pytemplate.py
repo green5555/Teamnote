@@ -1,4 +1,5 @@
 import sys;input=lambda:sys.stdin.readline().strip('\n')
-mis=lambda:map(int,input().split())
+isp=lambda:input().split()
+mis=lambda T=int:map(T,isp())
 ii=lambda:int(input())
 
