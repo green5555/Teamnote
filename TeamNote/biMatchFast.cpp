@@ -1,21 +1,21 @@
 const int MAX = 100;
 struct BiMatching {
     vector<int> adj[MAX];
-    int iter, pa[MAX], pb[MAX], was[MAX];
+    int iter, A[MAX], B[MAX], was[MAX];
 
-    bool dfs(int v) {
-        was[v] = iter;
-        for (int u : adj[v]) {
-            if (pb[u] == -1) {
-                pa[v] = u;
-                pb[u] = v;
+    bool dfs(int u) {
+        was[u] = iter;
+        for (int v : adj[u]) {
+            if (B[v] == -1) {
+                A[u] = v;
+                B[v] = u;
                 return true;
             }
         }
-        for (int u : adj[v]) {
-            if (was[pb[u]] != iter && dfs(pb[u])) {
-                pa[v] = u;
-                pb[u] = v;
+        for (int v : adj[u]) {
+            if (was[B[v]] != iter && dfs(B[v])) {
+                A[u] = v;
+                B[v] = u;
                 return true;
             }
         }
@@ -23,8 +23,8 @@ struct BiMatching {
     }
 
     int biMatch() {
-        memset(pa, -1, sizeof(pa));
-        memset(pb, -1, sizeof(pb));
+        memset(A, -1, sizeof(A));
+        memset(B, -1, sizeof(B));
         memset(was, 0, sizeof(was));
         iter = 0;
         int res = 0;
@@ -32,7 +32,7 @@ struct BiMatching {
             iter++;
             int add = 0;
             for (int i = 0; i < MAX; i++) {
-                if (pa[i] == -1 && dfs(i)) {
+                if (A[i] == -1 && dfs(i)) {
                     add++;
                 }
             }
